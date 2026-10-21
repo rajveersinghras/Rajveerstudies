@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>INDIAN HISTORY</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{--primary:#667eea;--primary-dark:#5568d3;--secondary:#764ba2;--success:#48bb78;--danger:#f5576c;--warning:#fbbf24;--info:#4facfe;--bg-light:#f7fafc;--bg-white:#fff;--text-dark:#1a202c;--text-light:#718096;--border:#e2e8f0}
+[data-theme="dark"]{--bg-light:#1a202c;--bg-white:#2d3748;--text-dark:#f7fafc;--text-light:#cbd5e0;--border:#4a5568}
+body{font-family:'Poppins',-apple-system,BlinkMacSystemFont,sans-serif;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);min-height:100vh;overflow:hidden;user-select:none;-webkit-user-select:none;transition:background .3s}
+.scrollable::-webkit-scrollbar{width:6px}
+.scrollable::-webkit-scrollbar-track{background:transparent}
+.scrollable::-webkit-scrollbar-thumb{background:var(--primary);border-radius:10px}
+.protected-content{white-space:pre-wrap;word-wrap:break-word;word-break:break-word;line-height:1.6;user-select:none}
+#modeSelection{position:fixed;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center;z-index:9999;padding:20px;overflow-y:auto}
+.mode-container{background:#fff;border-radius:24px;padding:40px 30px;max-width:500px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,.3);animation:ms .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes ms{from{opacity:0;transform:translateY(40px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.mode-header{text-align:center;margin-bottom:32px}
+.mode-header-icon{width:70px;height:70px;margin:0 auto 16px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:36px;color:#fff;box-shadow:0 8px 24px rgba(102,126,234,.3)}
+.mode-header h2{font-size:24px;font-weight:700;color:#1a202c;margin-bottom:8px}
+.mode-header p{font-size:14px;color:#718096;font-weight:400}
+.mode-cards{display:grid;gap:16px;margin-bottom:24px}
+.mode-card{background:#f7fafc;border:2px solid #e2e8f0;border-radius:16px;padding:20px;cursor:pointer;transition:all .3s;position:relative}
+.mode-card:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(102,126,234,.15);border-color:#cbd5e0}
+.mode-card.selected{border-color:#667eea;background:#fff;box-shadow:0 8px 24px rgba(102,126,234,.2);transform:translateY(-2px)}
+.mode-card-header{display:flex;align-items:center}
+.mode-icon{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-right:16px;flex-shrink:0}
+.exam-mode .mode-icon{background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);color:#fff}
+.practice-mode .mode-icon{background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);color:#fff}
+.mode-info h3{font-size:17px;font-weight:700;color:#1a202c;margin-bottom:4px}
+.mode-info p{font-size:13px;color:#718096;line-height:1.4}
+.timer-config{margin-bottom:24px}
+.timer-config label{display:block;font-size:14px;font-weight:600;color:#1a202c;margin-bottom:10px}
+.timer-config label i{margin-right:6px;color:#667eea}
+.timer-input{width:100%;padding:14px 16px;border:2px solid #e2e8f0;border-radius:12px;font-size:15px;font-weight:500;transition:all .3s;background:#fff;font-family:'Poppins',sans-serif;color:#1a202c}
+.timer-input::placeholder{color:#a0aec0}
+.timer-input:focus{outline:none;border-color:#667eea;box-shadow:0 0 0 3px rgba(102,126,234,.1)}
+.start-btn{width:100%;padding:16px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 20px rgba(102,126,234,.35)}
+.start-btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 12px 28px rgba(102,126,234,.45)}
+.start-btn:active:not(:disabled){transform:translateY(0)}
+.start-btn:disabled{opacity:.5;cursor:not-allowed;background:#cbd5e0;box-shadow:none}
+#quizContainer{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--bg-light);overflow:hidden}
+
+/* MODIFIED HEADER SIZES FOR COMPACTNESS */
+.quiz-header{position:fixed;top:0;left:0;right:0;background:var(--bg-white);box-shadow:0 2px 15px rgba(0,0,0,.08);z-index:100;padding:8px 12px}
+.header-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px}
+.quiz-title{font-size:14px;font-weight:700;color:var(--text-dark);display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.quiz-title-text{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:150px}
+.mode-badge{font-size:9px;padding:3px 8px;border-radius:20px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;white-space:nowrap}
+.mode-badge.exam{background:linear-gradient(135deg,#f093fb 0%,#f5576c 100%);color:#fff}
+.mode-badge.practice{background:linear-gradient(135deg,#4facfe 0%,#00f2fe 100%);color:#fff}
+.header-actions{display:flex;gap:8px;align-items:center}
+.theme-toggle{width:32px;height:32px;background:var(--bg-light);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--text-dark);transition:all .3s}
+.theme-toggle:hover{transform:scale(1.1)}
+.timer-display{display:flex;align-items:center;gap:6px;font-size:14px;font-weight:700;color:var(--primary);padding:5px 10px;background:linear-gradient(135deg,rgba(102,126,234,.15) 0%,rgba(118,75,162,.15) 100%);border-radius:12px;white-space:nowrap}
+.timer-display.warning{color:var(--danger);background:linear-gradient(135deg,rgba(245,87,108,.15) 0%,rgba(240,147,251,.15) 100%);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.7}}
+.header-progress{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--text-light);margin-bottom:4px}
+.progress-bar-container{height:6px;background:var(--border);border-radius:10px;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--primary) 0%,var(--secondary) 100%);transition:width .3s;border-radius:10px}
+
+/* ADJUSTED FOR SMALLER HEADER & NAV FOOTER */
+.question-section{position:fixed;top:105px;left:0;right:0;bottom:70px;overflow-y:auto;overflow-x:hidden;padding:15px;-webkit-overflow-scrolling:touch}
+.question-section.scrollable{scrollbar-width:thin;scrollbar-color:var(--primary) transparent}
+
+/* MODIFIED FONT SIZES FOR QUESTIONS/OPTIONS */
+.question-card{background:var(--bg-white);border-radius:20px;padding:20px;box-shadow:0 4px 20px rgba(0,0,0,.06);max-width:800px;margin:0 auto}
+.question-number{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--primary);background:linear-gradient(135deg,rgba(102,126,234,.15) 0%,rgba(118,75,162,.15) 100%);padding:5px 10px;border-radius:20px;margin-bottom:12px}
+.question-reference{background:linear-gradient(135deg,rgba(79,172,254,.15) 0%,rgba(0,242,254,.15) 100%);border-left:4px solid var(--info);padding:10px 12px;border-radius:10px;margin-bottom:12px;font-size:12px;color:var(--text-dark);line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+.question-text{font-size:14px;font-weight:600;color:var(--text-dark);line-height:1.6;margin-bottom:16px;white-space:pre-wrap;word-wrap:break-word;word-break:break-word}
+.options-container{display:grid;gap:10px}
+.option-btn{width:100%;padding:12px 15px;background:var(--bg-light);border:2px solid var(--border);border-radius:12px;text-align:left;font-size:13px;color:var(--text-dark);cursor:pointer;transition:all .3s;display:flex;align-items:flex-start;gap:10px;line-height:1.5;white-space:pre-wrap;word-wrap:break-word;word-break:break-word;user-select:none}
+.option-btn:active{transform:scale(.98)}
+.option-indicator{min-width:24px;height:24px;border-radius:50%;background:var(--bg-white);border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;transition:all .3s}
+.option-text{flex:1;padding-top:2px}
+.option-btn:hover:not(.disabled){border-color:var(--primary);transform:translateX(4px)}
+.option-btn.selected{background:linear-gradient(135deg,rgba(102,126,234,.15) 0%,rgba(118,75,162,.15) 100%);border-color:var(--primary)}
+.option-btn.selected .option-indicator{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff;border-color:transparent}
+.option-btn.correct{background:linear-gradient(135deg,rgba(72,187,120,.15) 0%,rgba(72,187,120,.15) 100%);border-color:var(--success)}
+.option-btn.correct .option-indicator{background:var(--success);color:#fff;border-color:transparent}
+.option-btn.incorrect{background:linear-gradient(135deg,rgba(245,87,108,.15) 0%,rgba(245,87,108,.15) 100%);border-color:var(--danger)}
+.option-btn.incorrect .option-indicator{background:var(--danger);color:#fff;border-color:transparent}
+.option-btn.disabled{pointer-events:none;opacity:.6}
+.explanation-box{display:none;background:linear-gradient(135deg,rgba(254,245,231,.5) 0%,rgba(251,191,36,.2) 100%);border-left:4px solid var(--warning);border-radius:12px;padding:12px;margin-top:16px;animation:sd .3s ease-out}
+@keyframes sd{from{opacity:0;max-height:0;padding:0}to{opacity:1;max-height:500px;padding:12px}}
+.explanation-header{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#92400e;margin-bottom:8px}
+.explanation-text{font-size:12px;color:#78350f;line-height:1.5;white-space:pre-wrap;word-wrap:break-word}
+[data-theme="dark"] .explanation-text{color:#fbbf24}
+.explanation-mode-control{display:flex;align-items:center;gap:5px;padding:4px 7px;border-radius:9px;background:var(--bg-light);border:1px solid var(--border);color:var(--text-light);font-size:10px;white-space:nowrap}
+.explanation-mode-control select{max-width:105px;border:1px solid var(--border);border-radius:6px;padding:5px 6px;background:var(--bg-white);color:var(--text-dark);font:600 11px 'Poppins',sans-serif;outline:none}
+.notes-panel{margin-top:16px;padding:14px;border:1px solid #d9dff2;border-radius:14px;background:#fffdf7;color:#222;box-shadow:0 3px 12px rgba(25,40,80,.08);user-select:text}
+.notes-banner{display:flex;align-items:center;gap:9px;padding:10px 12px;margin-bottom:12px;border-radius:10px;background:linear-gradient(135deg,#e8eef7,#f0e8f7);border:1px solid #b8c5e3;color:#243d70}
+.notes-banner-icon{font-size:22px}.notes-banner-title{font-size:14px;font-weight:800}.notes-banner-sub{font-size:10px;color:#64708a;margin-top:2px}
+.notes-section{border:1px solid var(--note-border,#cbd5e1);border-radius:9px;padding:11px 12px;margin:9px 0;background:var(--note-bg,#f7f9fd)}
+.notes-section h4{font-size:11px;letter-spacing:.6px;text-transform:uppercase;margin-bottom:7px;color:var(--note-head,#254575)}
+.notes-section p,.notes-section li{font-size:12px;line-height:1.6;color:#303744;white-space:pre-wrap;overflow-wrap:anywhere}
+.notes-section ul{padding-left:18px}.notes-section li{margin:4px 0}
+.notes-section.definition{--note-border:#e4b84c;--note-bg:#fff8e1;--note-head:#805600}
+.notes-section.points{--note-border:#9db4de;--note-bg:#edf3fc;--note-head:#1a3a6b}
+.notes-section.timeline{--note-border:#8bc6c1;--note-bg:#e8f7f7;--note-head:#1a6b6b}
+.notes-section.terms{--note-border:#c8a4de;--note-bg:#f3eafa;--note-head:#5a1a8b}
+.notes-section.revision{--note-border:#9ac9a7;--note-bg:#eaf7ed;--note-head:#1a6b3a}
+.notes-empty{font-size:12px;color:#64748b;font-style:italic}
+@media(max-width:600px){.explanation-mode-control label{display:none}.explanation-mode-control select{max-width:88px}.notes-panel{padding:10px}}
+.nav-controls{position:fixed;bottom:0;left:0;right:0;background:var(--bg-white);padding:10px 16px;box-shadow:0 -2px 15px rgba(0,0,0,.08);display:flex;gap:10px;z-index:90}
+.nav-btn{flex:1;padding:12px;border:none;border-radius:10px;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:6px}
+.nav-btn.primary{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff}
+.nav-btn.secondary{background:var(--bg-light);color:var(--text-dark);border:2px solid var(--border)}
+.nav-btn:active{transform:scale(.96)}
+.nav-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.question-nav-toggle{position:fixed;bottom:85px;right:20px;width:48px;height:48px;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff;border:none;border-radius:50%;font-size:18px;cursor:pointer;box-shadow:0 8px 20px rgba(102,126,234,.4);z-index:85;transition:all .3s}
+.question-nav-toggle:active{transform:scale(.95)}
+.question-nav-panel{position:fixed;bottom:0;left:0;right:0;background:var(--bg-white);border-radius:24px 24px 0 0;box-shadow:0 -4px 30px rgba(0,0,0,.15);z-index:95;max-height:70vh;overflow-y:auto;transform:translateY(100%);transition:transform .3s;padding:20px}
+.question-nav-panel.open{transform:translateY(0)}
+.nav-panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid var(--border)}
+.nav-panel-title{font-size:16px;font-weight:700;color:var(--text-dark)}
+.nav-close-btn{width:32px;height:32px;background:var(--bg-light);border:none;border-radius:50%;font-size:16px;cursor:pointer;color:var(--text-light)}
+.nav-legend{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:20px;font-size:11px;color:var(--text-dark)}
+.legend-item{display:flex;align-items:center;gap:6px;color:var(--text-dark)}
+.legend-box{width:16px;height:16px;border-radius:4px}
+.legend-box.answered{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%)}
+.legend-box.marked{background:linear-gradient(135deg,var(--warning) 0%,#f59e0b 100%)}
+.legend-box.unanswered{background:var(--border)}
+.question-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.question-nav-item{aspect-ratio:1;border:2px solid var(--border);border-radius:8px;background:var(--bg-white);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;cursor:pointer;transition:all .3s;color:var(--text-light)}
+.question-nav-item:active{transform:scale(.95)}
+.question-nav-item.current{border-color:var(--primary);background:linear-gradient(135deg,rgba(102,126,234,.15) 0%,rgba(118,75,162,.15) 100%);color:var(--primary)}
+.question-nav-item.answered{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff;border-color:transparent}
+.question-nav-item.marked{background:linear-gradient(135deg,var(--warning) 0%,#f59e0b 100%);color:#fff;border-color:transparent}
+.question-nav-item.correct{background:linear-gradient(135deg,var(--success) 0%,#38a169 100%);color:#fff;border-color:transparent}
+.question-nav-item.incorrect{background:linear-gradient(135deg,var(--danger) 0%,#e53e3e 100%);color:#fff;border-color:transparent}
+#resultsContainer{display:none;position:fixed;top:0;left:0;width:100%;height:100vh;background:var(--bg-light);overflow-y:auto;overflow-x:hidden;padding:20px;z-index:1000}
+#resultsContainer.scrollable{scrollbar-width:thin;scrollbar-color:var(--primary) transparent}
+.results-header{text-align:center;padding:40px 20px;background:var(--bg-white);border-radius:20px;margin-bottom:20px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.results-icon{font-size:60px;margin-bottom:15px}
+.results-title{font-size:22px;font-weight:700;color:var(--text-dark);margin-bottom:8px}
+.results-score{font-size:44px;font-weight:800;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.results-percentage{font-size:18px;color:var(--text-light);font-weight:600}
+.stats-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px;max-width:800px;margin-left:auto;margin-right:auto}
+.stat-card{background:var(--bg-white);padding:18px;border-radius:14px;box-shadow:0 4px 20px rgba(0,0,0,.06)}
+.stat-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;margin-bottom:10px}
+.stat-icon.correct{background:linear-gradient(135deg,var(--success) 0%,#38a169 100%);color:#fff}
+.stat-icon.incorrect{background:linear-gradient(135deg,var(--danger) 0%,#e53e3e 100%);color:#fff}
+.stat-icon.unattempted{background:linear-gradient(135deg,#a0aec0 0%,#718096 100%);color:#fff}
+.stat-icon.negative{background:linear-gradient(135deg,#ed8936 0%,#dd6b20 100%);color:#fff}
+.stat-value{font-size:26px;font-weight:700;color:var(--text-dark);margin-bottom:2px}
+.stat-label{font-size:12px;color:var(--text-light);font-weight:500}
+.action-buttons{display:grid;gap:10px;max-width:800px;margin:0 auto}
+.action-btn{width:100%;padding:14px;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .3s}
+.action-btn.primary{background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);color:#fff}
+.action-btn.secondary{background:var(--bg-white);color:var(--text-dark);border:2px solid var(--border)}
+.action-btn:hover{transform:translateY(-2px)}
+
+@media (min-width: 1024px) {
+    body { overflow: auto !important; }
+    #quizContainer {
+        display: grid !important;
+        grid-template-columns: 1fr 320px;
+        grid-template-rows: auto 1fr auto;
+        gap: 0;
+        height: 100vh;
+        overflow: hidden;
+    }
+    .quiz-header {
+        grid-column: 1 / -1;
+        position: static;
+        padding: 12px 20px;
+        border-bottom: 3px solid var(--border);
+    }
+    .header-top {
+        max-width: none;
+        margin-bottom: 10px;
+    }
+    .quiz-title-text { max-width: 400px; }
+    .timer-display {
+        padding: 6px 12px;
+        font-size: 15px;
+    }
+    .question-section {
+        position: static !important;
+        grid-column: 1;
+        grid-row: 2;
+        overflow-y: auto;
+        padding: 24px;
+        background: var(--bg-light);
+        top: auto !important;
+        bottom: auto !important;
+    }
+    .question-card {
+        max-width: 900px;
+        padding: 24px;
+        margin: 0 auto 20px;
+    }
+    .question-text {
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+    .option-btn {
+        padding: 14px 18px;
+        font-size: 14px;
+    }
+    .option-indicator {
+        min-width: 28px;
+        height: 28px;
+        font-size: 12px;
+    }
+    .question-nav-panel {
+        position: static !important;
+        grid-column: 2;
+        grid-row: 2;
+        transform: none !important;
+        max-height: none;
+        height: 100%;
+        border-radius: 0;
+        border-left: 3px solid var(--border);
+        box-shadow: none;
+        padding: 24px;
+        overflow-y: auto;
+        background: var(--bg-white);
+    }
+    .question-nav-panel.open { transform: none !important; }
+    .nav-panel-header {
+        position: sticky;
+        top: 0;
+        background: var(--bg-white);
+        z-index: 10;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+    }
+    .nav-panel-title {
+        font-size: 15px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    .nav-close-btn { display: none; }
+    .nav-legend {
+        position: sticky;
+        top: 60px;
+        background: var(--bg-white);
+        z-index: 9;
+        padding: 16px;
+        margin: -16px -16px 20px;
+        border-radius: 12px;
+        background: var(--bg-light);
+    }
+    .question-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+    .question-nav-item {
+        aspect-ratio: 1;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+    .question-nav-toggle { display: none; }
+    .nav-controls {
+        position: static;
+        grid-column: 1;
+        grid-row: 3;
+        padding: 12px 20px;
+        border-top: 3px solid var(--border);
+        max-width: none;
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+    }
+    .nav-btn {
+        min-width: 140px;
+        padding: 14px 20px;
+        font-size: 14px;
+    }
+    #resultsContainer {
+        padding: 40px;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+    .results-header {
+        padding: 50px 30px;
+        margin-bottom: 24px;
+    }
+    .results-icon { font-size: 80px; }
+    .results-title { font-size: 30px; }
+    .results-score { font-size: 56px; }
+    .results-percentage { font-size: 20px; }
+    .stats-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 24px;
+        max-width: none;
+    }
+    .stat-card { padding: 24px; }
+    .stat-icon { width: 48px; height: 48px; font-size: 20px; }
+    .stat-value { font-size: 32px; }
+    .stat-label { font-size: 13px; }
+    .action-buttons {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        max-width: 800px;
+    }
+    .action-btn { padding: 16px; font-size: 15px; }
+    .mode-container {
+        max-width: 600px;
+        padding: 40px 30px;
+    }
+    .mode-header-icon {
+        width: 76px;
+        height: 76px;
+        font-size: 36px;
+    }
+    .mode-header h2 { font-size: 26px; }
+    .mode-header p { font-size: 14px; }
+    .mode-cards { gap: 16px; }
+    .mode-card {
+        padding: 20px;
+        border-radius: 16px;
+    }
+    .mode-icon {
+        width: 54px;
+        height: 54px;
+        font-size: 24px;
+        margin-right: 16px;
+    }
+    .mode-info h3 { font-size: 17px; }
+    .mode-info p { font-size: 13px; }
+    .timer-input { padding: 14px 16px; font-size: 15px; }
+    .start-btn { padding: 16px; font-size: 16px; }
+}
+
+@media (min-width: 1440px) {
+    #quizContainer {
+        grid-template-columns: 1fr 380px;
+    }
+    .question-section { padding: 32px 48px; }
+    .question-card { max-width: 1000px; padding: 32px; }
+    .question-nav-panel { padding: 32px; }
+    .question-grid { grid-template-columns: repeat(5, 1fr); }
+    .nav-controls { padding: 16px 48px; }
+}
+</style>
+</head>
+<body class="theme-anime">
+<div id="modeSelection">
+<div class="mode-container">
+<div class="mode-header">
+<div class="mode-header-icon"><i class="fas fa-graduation-cap"></i></div>
+<h2>INDIAN HISTORY</h2>
+<p>Choose your preferred test mode</p>
+</div>
+<div class="mode-cards">
+<div class="mode-card exam-mode" data-mode="exam">
+<div class="mode-card-header">
+<div class="mode-icon"><i class="fas fa-file-alt"></i></div>
+<div class="mode-info">
+<h3>Exam Mode</h3>
+<p>Complete all questions, results shown after submission</p>
+</div>
+</div>
+</div>
+<div class="mode-card practice-mode" data-mode="practice">
+<div class="mode-card-header">
+<div class="mode-icon"><i class="fas fa-book-open"></i></div>
+<div class="mode-info">
+<h3>Practice Mode</h3>
+<p>Instant feedback with detailed explanations</p>
+</div>
+</div>
+</div>
+</div>
+<div class="timer-config">
+<label for="ct"><i class="fas fa-clock"></i> Custom Timer (minutes)</label>
+<input type="number" id="ct" class="timer-input" placeholder="Default: ${Math.round(qd.tt / 60)} minutes" min="1" max="300"/>
+</div>
+<button class="start-btn" id="sb" disabled><i class="fas fa-play-circle"></i><span>Start Quiz</span></button>
+</div>
+</div>
+<div id="quizContainer">
+<div class="quiz-header">
+<div class="header-top">
+<div class="quiz-title">
+<i class="fas fa-clipboard-list"></i>
+<span class="quiz-title-text" title="INDIAN HISTORY">INDIAN HISTORY</span>
+<span class="mode-badge" id="mb"></span>
+</div>
+<div class="header-actions">
+<div class="explanation-mode-control" title="Choose how explanations appear under each question"><label for="explanationMode">Explanation</label><select id="explanationMode" onchange="setExplanationMode(this.value)"><option value="plain">Plain</option><option value="notes">Study Notes</option></select></div>
+<!-- Standalone TTS Controls -->
+<div style="display: flex; gap: 8px; font-size: 11px; align-items: center; color: var(--text-light); margin-right: 10px;">
+    <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; user-select: none;">
+        <input type="checkbox" id="tts-read-q-p" style="accent-color: var(--primary);"> Q
+    </label>
+    <label style="display: flex; align-items: center; gap: 3px; cursor: pointer; user-select: none;">
+        <input type="checkbox" id="tts-read-exp-p" style="accent-color: var(--primary);"> Exp
+    </label>
+</div>
+<button class="theme-toggle" id="tt" title="Toggle Dark Mode"><i class="fas fa-moon"></i></button>
+<div class="timer-display" id="td"><i class="fas fa-clock"></i><span id="tt2">00:00</span></div>
+</div>
+</div>
+<div class="header-progress">
+<span id="pt">Question 1 of 100</span>
+<span id="at">Attempted: 0/100</span>
+</div>
+<div class="progress-bar-container"><div class="progress-bar" id="pb"></div></div>
+</div>
+<div class="question-section scrollable" id="qs"></div>
+<div class="nav-controls">
+<button class="nav-btn secondary" id="pv"><i class="fas fa-chevron-left"></i>Previous</button>
+<button class="nav-btn secondary" id="mk"><i class="fas fa-bookmark"></i>Mark</button>
+<!-- Lifelines Buttons -->
+<button class="nav-btn secondary" id="ll-5050" onclick="useLifeline('5050')" style="background: rgba(102,126,234,0.1); color: var(--primary); border-color: rgba(102,126,234,0.2);">🌓 50:50</button>
+<button class="nav-btn secondary" id="ll-poll" onclick="useLifeline('poll')" style="background: rgba(72,187,120,0.1); color: var(--success); border-color: rgba(72,187,120,0.2);">📊 Poll</button>
+<button class="nav-btn secondary" id="ll-double" onclick="useLifeline('double')" style="background: rgba(251,191,36,0.1); color: var(--warning); border-color: rgba(251,191,36,0.2);">2️⃣ Double</button>
+<button class="nav-btn primary" id="nx">Next<i class="fas fa-chevron-right"></i></button>
+<button class="nav-btn primary" id="sm" style="display:none"><i class="fas fa-paper-plane"></i>Submit</button>
+</div>
+<button class="question-nav-toggle" id="nt"><i class="fas fa-th"></i></button>
+<div class="question-nav-panel" id="np">
+<div class="nav-panel-header">
+<h3 class="nav-panel-title"><i class="fas fa-map-marked-alt"></i> Question Navigator</h3>
+<button class="nav-close-btn" id="nc"><i class="fas fa-times"></i></button>
+</div>
+<div class="nav-legend">
+<div class="legend-item"><div class="legend-box answered"></div><span>Answered</span></div>
+<div class="legend-item"><div class="legend-box marked"></div><span>Marked</span></div>
+<div class="legend-item"><div class="legend-box unanswered"></div><span>Not Answered</span></div>
+</div>
+<div class="question-grid" id="qg"></div>
+</div>
+</div>
+<div id="resultsContainer">
+<div class="results-header">
+<div class="results-icon" id="ri"></div>
+<h2 class="results-title" id="rt"></h2>
+<div class="results-score" id="rs"></div>
+<div class="results-percentage" id="rp"></div>
+</div>
+<div class="stats-grid">
+<div class="stat-card"><div class="stat-icon correct"><i class="fas fa-check"></i></div><div class="stat-value" id="cc">0</div><div class="stat-label">Correct</div></div>
+<div class="stat-card"><div class="stat-icon incorrect"><i class="fas fa-times"></i></div><div class="stat-value" id="ic">0</div><div class="stat-label">Incorrect</div></div>
+<div class="stat-card"><div class="stat-icon unattempted"><i class="fas fa-minus"></i></div><div class="stat-value" id="uc">0</div><div class="stat-label">Unattempted</div></div>
+<div class="stat-card"><div class="stat-icon negative"><i class="fas fa-exclamation-triangle"></i></div><div class="stat-value" id="nm">0</div><div class="stat-label">Negative Marks</div></div>
+</div>
+<div class="action-buttons">
+<button class="action-btn primary" id="rb"><i class="fas fa-search"></i>Review Answers</button>
+<button class="action-btn secondary" id="rsb"><i class="fas fa-redo"></i>Restart Quiz</button>
+</div>
+</div>
+
+<!-- Standalone Audience Poll Modal -->
+<div id="pollModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter:blur(3px); z-index:99999; align-items:center; justify-content:center; padding:20px;">
+    <div style="background:var(--bg-white); border-radius:20px; padding:30px; max-width:400px; width:100%; box-shadow:0 10px 30px rgba(0,0,0,0.2); color:var(--text-dark);">
+        <h3 style="text-align: center; color: var(--primary); margin-bottom: 15px;"><i class="fas fa-chart-bar"></i> Audience Poll</h3>
+        <div id="pollBarsContainer" style="display: flex; flex-direction: column; gap: 15px; margin-bottom: 20px;"></div>
+        <button class="nav-btn primary" onclick="document.getElementById('pollModal').style.display='none'" style="width:100%;">Close</button>
+    </div>
+</div>
+
+<script>
+const qd={"q":[{"id":0,"txt":"'फ़ैन्स' के संबंध में निम्नलिखित में से कौन सा कथन गलत है?","ref":"","opts":["फ़ाइनेस से मोती, चूड़ियाँ, झुमके और छोटे बर्तन बनाए जाते थे।","वस्तुएँ रेत या पिसे हुए क्वार्टज़ को गोंद के साथ मिलाकर बनाई जाती थीं।","निर्मित वस्तुओं पर एक चिकनी कोटिंग लागू की गई थी।","फ़ाइनेस प्राकृतिक रूप से पाया गया था।"],"ci":3,"exp":"Ex: • फ़ाइनेस का उत्पादन कृत्रिम रूप से किया गया था। • इस चिकनी कोटिंग का रंग आमतौर पर नीला या हल्का समुद्री-हरा होता था।"},{"id":1,"txt":"सिंधु घाटी सभ्यता के धार्मिक पहलुओं के संबंध में निम्नलिखित कथनों पर विचार करें-\nA. इस सभ्यता के निवासी कर्म और पुनर्जन्म के सिद्धांत में विश्वास करते थे।\nB. यहां के निवासियों ने पशुबलि का विरोध किया।\nC. यहां के निवासियों को ध्यान और योग का ज्ञान था।\nउपरोक्त कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["केवल ए और बी","A और C केवल","केवल बी और सी","उपरोक्त सभी"],"ci":1,"exp":"Ex: सिंधु घाटी सभ्यता के लोग अंधविश्वासी थे; वे पशु बलि का अभ्यास करते थे और जादू, जादू-टोना और गुप्त अनुष्ठानों में विश्वास करते थे।"},{"id":2,"txt":"निम्नलिखित का मिलान करें-सूची-I सूची-II (सिंधु घाटी सभ्यता (साक्ष्य मिले) स्थल)\nA. बनावली आई. चार कांस्य रथ\nB. दैमाबाद ii. हाथियों के साक्ष्य\nC. रोज़डी iii. धोने का बर्तन\nD. सुरकोटदा iv. घोड़े की हड्डियाँ\nकोड: ए बी सी डी ए बी सी डी","ref":"","opts":["iii i iv ii","iii i ii iv","i ii iv iii","i iii iv ii"],"ci":1,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":3,"txt":"कथन-I: ऋग्वेद में संदर्भ है \"एकम् सत् विप्रा बहुधा वदन्ति अग्निम् यमम्...\" (सत्य एक है; ऋषि इसे विभिन्न नामों से बुलाते हैं - अग्नि, यम...)। कथन-II: ऋग्वैदिक काल के दौरान ब्रह्मा, विष्णु और महेश प्रमुख देवता थे। कोड:","ref":"","opts":["कथन I सही है और कथन II ग़लत है।","दोनों कथन सही हैं.","कथन I गलत है और कथन II सही है।","दोनों कथन ग़लत हैं."],"ci":0,"exp":"Ex: ऋग्वैदिक काल के प्रमुख देवता अग्नि, इंद्र और सोम थे।"},{"id":4,"txt":"निम्नलिखित में से किस उपनिषद में बौद्ध धर्म के 'पंचशील सिद्धांत' का उल्लेख है?","ref":"","opts":["जाबाल उपनिषद","छान्दोग्य उपनिषद","कठोपनिषद","मुंडकोपनिषद"],"ci":1,"exp":"Ex: छांदोग्य उपनिषद: • इस उपनिषद में सबसे पहले वासुदेव/भगवान श्री कृष्ण का उल्लेख मिलता है। • यहाँ बौद्ध धर्म के 'पंचशील सिद्धांत' का उल्लेख किया गया है। • इसमें सत्यकाम और जाबाला की कहानी है; यह एक अविवाहित/अविवाहित माँ की कहानी है।"},{"id":5,"txt":"पुराणों के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. गुप्त वंश की जानकारी विष्णु पुराण में मिलती है।\nB. स्कन्द पुराण सबसे प्राचीन पुराण है।\nC. दुर्गासप्तशती का वर्णन मार्कण्डेय पुराण में मिलता है।\nउपरोक्त में से कौन सा कथन गलत है/हैं?","ref":"","opts":["केवल ए और सी","केवल बी और सी","केवल A और B","उपरोक्त में से कोई नहीं"],"ci":2,"exp":"Ex: • विष्णु पुराण में मौर्य वंश की जानकारी मिलती है। • स्कंद पुराण सबसे बड़ा पुराण है। • मत्स्य पुराण सबसे प्राचीन पुराण है। • वायु पुराण में गुप्त वंश की जानकारी मिलती है।"},{"id":6,"txt":"निम्नलिखित में से कौन मनुस्मृति के टीकाकार हैं?\nA. भरुचि बी. विश्वरूप\nC. अपरार्क डी. कुल्लूक भट्ट\nई. गोविंदराज\nकोड:","ref":"","opts":["केवल ए, बी और सी","केवल सी, डी और ई","केवल A, D और E","केवल बी, सी और डी"],"ci":2,"exp":"Ex: • मनुस्मृति के टीकाकार- भरुचि, कुल्लुक भट्ट, मेधातिथि, गोविंदराज। • याज्ञवल्क्य स्मृति के टीकाकार- विश्वरूप, विज्ञानेश्वर, अपरार्क।"},{"id":7,"txt":"उत्तर वैदिक काल के विभिन्न वर्णों के अन्य नामों के संबंध में कितने जोड़े बेमेल हैं/हैं? वर्ण अन्य नाम\nA. ब्राह्मण – बलिहार\nB. क्षत्रिय – अदायी\nC. वैश्य - अन्यस्य बलिकृत्\nD. शूद्र - अन्यस्य प्रेष्य\nकोड:","ref":"","opts":["केवल एक","केवल दो","केवल तीन","उपरोक्त सभी"],"ci":1,"exp":"Ex: वर्ण अन्य नाम • ब्राह्मण - अदायी • क्षत्रिय - बलिहार"},{"id":8,"txt":"ऋग्वैदिक काल में आर्यों के मूल स्थान के विषय में भिन्न-भिन्न मतों के संदर्भ में कौन-सा युग्म बेमेल है? विद्वान मूल स्थान","ref":"","opts":["दयानंद सरस्वती - तिब्बत","बाल गंगाधर तिलक - उत्तरी ध्रुव","डॉ. पेन्का और हरमन हर्ट - जर्मनी","गंगानाथ झा - कश्मीर/हिमालय"],"ci":3,"exp":"Ex: विद्वान आर्यों का मूल स्थान • गंगानाथ झा - मध्य भारत • एल.डी.कल्ला - कश्मीर/हिमालय II 10. बौद्ध धर्म से संबंधित सूची-I (प्रमुख ग्रंथ) को सूची-II (लेखक)-सूची-I सूची-II से सुमेलित करें A. सुत्त पिटक i. मोग्गलिपुता तिस्सा बी. विनय-पिटक ii। आनंद सी. अभिधम्म पिटक iii. उपाली कोड: A B C A B C [1] i ii iii [2] iii ii i [3] ii i iii [4] ii iii i [5] प्रश्न का प्रयास नहीं किया गया"},{"id":9,"txt":"बौद्ध परिषदों के संगठन के संबंध में निम्नलिखित में से कितनी पंक्तियाँ सही ढंग से सुमेलित हैं/हैं? समय/काल शासक स्थान\nA. 483 ईसा पूर्व - अजातशत्रु - राजगृह\nB. 383 ईसा पूर्व - कालाशोक - पाटलिपुत्र\nC. 251 ईसा पूर्व - अशोक - वैशाली\nD. प्रथम शताब्दी - कनिष्क - कुण्डलवन, कश्मीर\nकोड :","ref":"","opts":["केवल एक","केवल दो","केवल तीन","उपरोक्त सभी"],"ci":1,"exp":"Ex: बौद्ध परिषदें समय शासक स्थान राष्ट्रपति 483 ईसा पूर्व अजातशत्रु राजगृह महाकश्यप 383 ईसा पूर्व कालाशोक वैशाली सर्वकामी 251 ईसा पूर्व अशोक पाटलिपुत्र मोग्गलिपुत्र तिस्सा प्रथम कुंडलवन • कनिष्क वसुमित्र शताब्दी कश्मीर"},{"id":10,"txt":"आजीवक संप्रदाय के संबंध में निम्नलिखित कथनों पर विचार करें-\nA. वे भाग्यवादी और नियतिवादी हैं।\nB. वे साल वृक्ष को पवित्र मानते हैं।\nC. यह एक नास्तिक विचारधारा है.\nD. वे पुनर्जन्म में विश्वास नहीं करते.\nउपरोक्त में से सही कथन का चयन करें-","ref":"","opts":["केवल ए और बी","केवल बी, सी और डी","A और C केवल","केवल ए, बी और सी"],"ci":2,"exp":"Ex: आजीविका संप्रदाय • संस्थापक - मक्खलि पुट्टा गोसाला • वे अशोक के पेड़ को पवित्र मानते हैं। • वे पुनर्जन्म में विश्वास करते हैं। • वे कठोर जीवन जीते थे और नग्न रहते थे।"},{"id":11,"txt":"द्वितीय जैन संगीति का आयोजन कहाँ एवं किसकी अध्यक्षता में किया गया था?","ref":"","opts":["पाटलिपुत्र, स्थूलभद्र","पावापुरी, सुधर्मा","श्रवणबेलगोला, इंद्रभूति","वल्लभी, देवर्धि क्षमाश्रमण"],"ci":3,"exp":"Ex: • द्वितीय जैन संगीति का आयोजन 512 ई. में देवार्धि क्षमाश्रमण की अध्यक्षता में वल्लभी में किया गया था। • 12 अंग और 12 उपंग का अंतिम संकलन इसी परिषद के दौरान किया गया था।"},{"id":12,"txt":"नालंदा महाविहार के संबंध में निम्नलिखित में से कौन सा कथन गलत है?","ref":"","opts":["इसकी स्थापना गुप्त वंश के शासक कुमारगुप्त प्रथम ने की थी।","इसमें तीन मुख्य इमारतें शामिल थीं- रत्नसागर, रत्नदाधि और रत्नरंजिका।","चीनी यात्री आई-त्सिंग और ह्वेन त्सांग ने 8वीं शताब्दी ईस्वी में नालंदा का दौरा किया था।","इसके पुस्तकालय को 'धर्मगंज' के नाम से जाना जाता था।"],"ci":2,"exp":"Ex: • 7वीं शताब्दी ई. में चीनी यात्री आई-त्सिंग (676 ई. - 685 ई.) और ह्वेन त्सांग ने नालंदा का दौरा किया था। •नालंदा महाविहार के पुस्तकालय को 'धर्मगंज' (सत्य का खजाना) के नाम से जाना जाता था; यह उस समय दुनिया में बौद्ध ज्ञान का सबसे प्रसिद्ध भंडार था।"},{"id":13,"txt":"भारतीय संस्कृति के सोलह संस्कारों के संबंध में निम्नलिखित में से कौन सा युग्म बेमेल है? संस्कार विवरण","ref":"","opts":["जातकर्म - यह जन्म के बाद किया जाने वाला पहला संस्कार है।","समावर्तन - शिक्षा के लिए घर छोड़कर गुरुकुल जाना।","निश्क्रमण - बच्चे को पहली बार घर से बाहर ले जाना।","गर्भाधान - उत्तम संतान की कामना से किया जाने वाला संस्कार।"],"ci":1,"exp":"Ex: समावर्तन - गुरुकुल में शिक्षा पूरी करके घर लौटना।"},{"id":14,"txt":"सातवाहनों के सांस्कृतिक योगदान के संबंध में निम्नलिखित में से कौन सा कथन सही है?\nA. उन्होंने अमरावती स्कूल ऑफ आर्ट को संरक्षण दिया।\nB. उन्होंने अशोक के स्तूपों का विस्तार किया और पहले की ईंटों और लकड़ी के स्थान पर पत्थर का उपयोग किया।\nC. वे अपने शासकों की छवियों वाले सिक्के जारी करने वाले पहले मूल भारतीय शासक थे।\nनीचे दिए गए कोड का उपयोग करके सही उत्तर चुनें:","ref":"","opts":["ए, बी और सी","केवल ए और बी","केवल बी और सी","केवल ए और सी"],"ci":0,"exp":"Ex: • सातवाहन दक्कन क्षेत्र में बौद्ध धर्म के प्रमुख संरक्षक थे। उन्होंने अमरावती स्कूल ऑफ आर्ट को भारी संरक्षण दिया, जो कृष्णा-गोदावरी निचली घाटी में फला-फूला और अपने जटिल सफेद चूना पत्थर/संगमरमर की आकृतियों के लिए प्रसिद्ध है। • सातवाहनों ने पहले से मौजूद कई अशोक स्तूपों (जैसे कि अमरावती में एक) का विस्तार किया और पुराने, कम टिकाऊ ईंट और लकड़ी के ढांचे को मजबूत पत्थर के बाहरी आवरण और बाड़ों से बदलकर उन्हें काफी बढ़ाया। • सातवाहन पहले मूल भारतीय शासक थे जिन्होंने अपने शासकों (विशेष रूप से गौतमीपुत्र सातकर्णी और वशिष्ठपुत्र पुलुमावी) के नाम और वास्तविक छवियों वाले द्विभाषी और चित्र सिक्के जारी किए थे।"},{"id":15,"txt":"दक्षिण भारत में संगमों के बारे में निम्नलिखित कथनों पर विचार करें -\nA. उन्हें पांड्यों के शाही संरक्षण में रखा गया था।\nB. तीनों संगम कपडापुरम में आयोजित किए गए थे।\nC. संपूर्ण संगम साहित्य तमिल भाषा में रचा गया था।\nऊपर दिए गए कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["केवल ए","केवल बी और सी","A और C केवल","केवल सी"],"ci":2,"exp":"Ex: • तीन संगम (तमिल कवियों की सभाएँ) मदुरै के पांड्य राजाओं के शाही संरक्षण में फले-फूले। तीन संगम अलग-अलग स्थानों पर आयोजित किए गए:- • पहला संगम: थेनमादुरई (पुराना मदुरै) में आयोजित किया गया। • दूसरा संगम: कपडापुरम में आयोजित हुआ। • तीसरा संगम: आधुनिक शहर मदुरै में आयोजित हुआ।"},{"id":16,"txt":"गुप्त वंश के संदर्भ में निम्नलिखित में से कौन सा कथन सही है?","ref":"","opts":["गुप्तों ने उत्तर भारत में पुष्यभूति राजवंश का उत्तराधिकारी बनाया।","समुद्रगुप्त गुप्त युग के संस्थापक थे, जो 320 ई. में उनके राज्यारोहण के साथ शुरू हुआ था।","महरौली लौह स्तंभ शिलालेख चंद्रगुप्त द्वितीय के शासनकाल की जानकारी देता है।","स्कंदगुप्त प्रसिद्ध विक्रमशिला विश्वविद्यालय के संस्थापक थे।"],"ci":2,"exp":"Ex: महरौली लौह स्तंभ (दिल्ली में स्थित) में \"चंद्र\" नामक राजा को समर्पित एक शिलालेख है, जिसे इतिहासकारों द्वारा गुप्त वंश के चंद्रगुप्त द्वितीय (चंद्रगुप्त विक्रमादित्य) के रूप में सार्वभौमिक रूप से पहचाना जाता है। यह उनकी सैन्य विजयों और उपलब्धियों पर प्रकाश डालता है।"},{"id":17,"txt":"गुप्त प्रशासन के संबंध में निम्नलिखित जोड़ियों का मिलान करें और नीचे दिए गए कोड का उपयोग करके सही उत्तर चुनें: आधिकारिक विभाग\nA. सांदिविग्रह I. विदेश मंत्री\nB. उपरीका ii. प्रांतीय गवर्नर\nC. नागर श्रेष्ठी iii. नगर प्रशासन\nD. आयुक्त iv. प्रांतीय प्रशासन\nकोड: ए बी सी डी ए बी सी डी","ref":"","opts":["मैं ii iii iv","ii i iv iii","iii i ii iv","iv ii iii i"],"ci":0,"exp":"Ex: • 'संदिविग्रह' नामक उच्च अधिकारी विदेश मामलों का मंत्री था। इस अधिकारी ने विदेश नीति का प्रबंधन किया, शांति संधियों (संधि) पर बातचीत की, और सैन्य संघर्षों (विग्रह) की निगरानी की। • गुप्त साम्राज्य के प्रांतों को 'भुक्ति' के नाम से जाना जाता था, और वे 'उपरिकस' नामक उच्च पदस्थ शाही अधिकारियों द्वारा शासित होते थे। • 'नगर श्रेष्ठी' नगर प्रशासन की देखरेख करने वाला अधिकारी था। • राजा 'कुमारमात्य' और 'अयुक्त' नामक अधिकारियों के एक वर्ग के माध्यम से प्रांतीय प्रशासन के साथ निकट संपर्क बनाए रखता था।"},{"id":18,"txt":"निम्नलिखित जोड़ियों का मिलान करें और नीचे दिए गए कोड का उपयोग करके सही उत्तर चुनें: रचना लेखक\nA. विक्रमोर्वसिया I. कालिदास\nB. बृहत्संहिता ii. विशाखादत्त\nC. मुद्राराक्षस iii. वराहमिहिर\nD. किरातार्जुनीय iv. भारवि\nकोड: ए बी सी डी ए बी सी डी","ref":"","opts":["iv iii i ii","iii i ii iv","मैं iii ii iv","ii iv i iii"],"ci":2,"exp":"Ex: • विक्रमोर्वशीयम् कवि कालिदास द्वारा लिखित एक क्लासिक संस्कृत नाटक है, जो राजा पुरुरवा और अप्सरा उर्वशी की वैदिक प्रेम कहानी का वर्णन करता है। • बृहत् संहिता प्राचीन भारतीय विद्वान वराहमिहिर द्वारा संस्कृत में लिखी गई एक महत्वपूर्ण विश्वकोश रचना है, जिसमें खगोल विज्ञान, ग्रहों की चाल, ग्रहण और वर्षा जैसे विषयों को शामिल किया गया है। • मुद्राराक्षस विशाखादत्त (विशाखदत्त) द्वारा लिखित एक ऐतिहासिक नाटक है। इसमें चाणक्य की सहायता से चन्द्रगुप्त मौर्य के राजनीतिक उत्थान को दर्शाया गया है। • किरातार्जुनिया एक महाकाव्य संस्कृत कविता (महाकाव्य) है जो कवि भारवि द्वारा रचित है, जिसमें अर्जुन और भगवान शिव (किरात/शिकारी के रूप में प्रच्छन्न) के बीच युद्ध का वर्णन किया गया है।"},{"id":19,"txt":"निम्नलिखित में से किस शिलालेख में हर्षवर्द्धन के शासनकाल का विवरण मिलता है?\nA. मधुबन बी.सोनीपत\nC. बांसखेड़ा डी. ऐहोल\nनीचे दिए गए कोड का उपयोग करके सही उत्तर चुनें:","ref":"","opts":["केवल ए और बी","केवल बी और सी","केवल ए, सी और डी","ए, बी, सी और डी"],"ci":3,"exp":"Ex: • मधुबन ताम्रपत्र शिलालेख उत्तर प्रदेश में स्थित है। इस शिलालेख में ब्राह्मणों को दिए गए भूमि अनुदान का विवरण है और इसमें पुष्यभूति (वर्धन) राजवंश की चार पीढ़ियों की शाही वंशावली शामिल है। • सोनीपत ताम्र मुहर शिलालेख हरियाणा में पाया जाता है। यह मुहर वर्धन शासकों के कालक्रम और उपाधियों को दर्ज करती है, जिसमें स्वयं हर्ष भी शामिल है। • उत्तर प्रदेश से बांसखेड़ा ताम्रपत्र शिलालेख में हर्षवर्द्धन के प्रामाणिक हस्ताक्षर और सुलेख मौजूद हैं। यह उनके प्रशासन, उपाधियों और उनकी भूमि अनुदान नीतियों पर प्रकाश डालता है। • एहोल शिलालेख की रचना चालुक्य राजा पुलकेशिन द्वितीय के दरबारी कवि रविकीर्ति ने की थी। इस शिलालेख में स्पष्ट रूप से नर्मदा के प्रसिद्ध युद्ध का उल्लेख है, जिसमें बताया गया है कि कैसे पुलकेशिन द्वितीय ने हर्षवर्द्धन को हराया और दक्षिणी भारत में उसके विस्तारवादी मार्च को रोका।"},{"id":20,"txt":"हर्षवर्धन ने 'कन्नौज विधानसभा' और 'प्रयाग विधानसभा' का आयोजन मुख्यतः किस उद्देश्य से किया था?","ref":"","opts":["सैन्य जीत और अपने साम्राज्य के विस्तार का जश्न मनाना","विदेशी दूतों के साथ व्यापार समझौतों पर चर्चा","धार्मिक प्रवचन को बढ़ावा देना और शाही (शाही) उदारता प्रदर्शित करना","अन्य समकालीन शासकों के साथ राजनीतिक गठबंधन को मजबूत करना"],"ci":2,"exp":"Ex: राजा हर्षवर्द्धन (जिन्होंने 606 से 647 ई. तक शासन किया) ने महायान बौद्ध धर्म को उजागर करने और अपनी शाही दानशीलता को प्रदर्शित करने के लिए इन दो विशाल सभाओं का आयोजन किया- • कन्नौज सभा (643 ई.): यह धार्मिक सभा प्रसिद्ध चीनी बौद्ध भिक्षु जुआनज़ांग (ह्वेन त्सांग) के सम्मान और महायान बौद्ध धर्म को लोकप्रिय बनाने के लिए आयोजित की गई थी। • प्रयाग सभा: हर्ष ने हर पाँच साल में गंगा, यमुना और सरस्वती नदियों के संगम पर ये उत्सव सभाएँ आयोजित कीं। इन आयोजनों में, उन्होंने भिक्षुओं, विद्वानों, गरीबों और जरूरतमंदों को अपनी सारी संचित संपत्ति और संपत्ति - जिसमें उनके शाही वस्त्र और गहने भी शामिल थे - दान करके अत्यधिक शाही उदारता का अभ्यास किया।"},{"id":21,"txt":"निम्नलिखित जोड़ियों पर विचार करें: दरबारी कवि संबद्ध राजवंश\nA. रविकीर्ति - चालुक्य\nB. अल्लासानि पद्दन्ना - पल्लव\nC. बाण - पुष्यभूति\nD. श्री पोन्ना - चोल\nउपरोक्त में से कौन सा/से जोड़ा सही सुमेलित है/हैं?","ref":"","opts":["A और C केवल","केवल बी और सी","केवल सी और डी","केवल ए और डी"],"ci":0,"exp":"Ex: • अल्लासानी पेद्दाना विजयनगर साम्राज्य (तुलुवा राजवंश) के सम्राट कृष्णदेवराय के दरबार से थे। • श्री पोन्ना 10वीं सदी के प्रसिद्ध शास्त्रीय कन्नड़ कवि थे, जिन्हें राष्ट्रकूट वंश के राजा कृष्ण तृतीय का संरक्षण प्राप्त था।"},{"id":22,"txt":"प्राचीन भारत के निम्नलिखित शासकों में से किस शासक को \"चित्रकारपुली,\" \"विचित्राचित्त\" और \"मत्ताविलास\" उपाधियाँ प्रदान की गईं?","ref":"","opts":["नरसिंहवर्मन- I","राजराजा चोल-I","महेंद्रवर्मन-I","पुलकेशिन-द्वितीय"],"ci":2,"exp":"Ex: महेंद्रवर्मन-प्रथम पल्लव वंश का एक प्रमुख शासक था जिसने प्राचीन भारत में उत्तरी तमिल क्षेत्र पर शासन किया था। वह कला, वास्तुकला और साहित्य के महान संरक्षक थे, जिसके कारण उन्हें \"चित्रकारपुली,\" \"विचित्राचित्त,\" और \"मत्तविलासा\" सहित कई अनूठी उपाधियाँ मिलीं।"},{"id":23,"txt":"महाजनपद और उनकी संबंधित राजधानी के संदर्भ में निम्नलिखित में से कौन सा जोड़ा सही ढंग से सुमेलित नहीं है?","ref":"","opts":["मगध - राजगृह","मल्ल - कुशीनारा","असका - शुक्तिमति","कुरु- इन्द्रप्रस्थ"],"ci":2,"exp":"Ex: • बौद्ध ग्रंथ अंगुत्तर निकाय (सुत्त-पिटक का भाग) में सोलह महाजनपदों की सूची दी गई है। • असका (या अस्माका) की राजधानी पोटाली थी, जो गोदावरी नदी के तट पर स्थित थी। • शुक्तिमती वास्तव में चेदि महाजनपद की राजधानी थी।"},{"id":24,"txt":"गुप्त वंश के निम्नलिखित शासकों को उनके शासन के सही कालानुक्रमिक क्रम में व्यवस्थित करें-\n1. घटोत्कच 2. चन्द्रगुप्त- प्रथम\n3. समुद्रगुप्त 4. स्कन्दगुप्त\nनीचे दिए गए कोड का उपयोग करके सही उत्तर चुनें।","ref":"","opts":["1 - 2 - 3 - 4","2 – 3 – 1 – 4","4 – 2 – 1 – 3","3 – 2 – 1 – 4"],"ci":0,"exp":"Ex: • घटोत्कच (लगभग 280-319 ई.): वह राजवंश के संस्थापक श्री गुप्त के उत्तराधिकारी बने और उन्होंने महाराजा की उपाधि धारण की। • चंद्रगुप्त प्रथम (लगभग 319-335 ई.पू.): घटोत्कच का पुत्र, उसे साम्राज्य का पहला शक्तिशाली शासक माना जाता है और उसने महाराजाधिराज की उपाधि धारण की थी। • समुद्रगुप्त (लगभग 335-375 ई.पू.): चंद्रगुप्त प्रथम का पुत्र, उसने साम्राज्य का व्यापक विस्तार किया और उसे \"भारत का नेपोलियन\" कहा जाता है। • स्कंदगुप्त (लगभग 455-467 ई.): एक बाद का शासक जिसे हूणों के विनाशकारी आक्रमणों के खिलाफ साम्राज्य की रक्षा करने के लिए जाना जाता है।"},{"id":25,"txt":"निम्नलिखित पर विचार करें:\nA. देवनागरी बी. संस्कृत\nC. ब्राह्मी डी. खरोष्ठी\nअशोक के शिलालेख उपरोक्त में से किस लिपि/भाषा में लिखे गए थे?","ref":"","opts":["केवल ए और बी","C और D केवल","केवल बी, सी और डी","उपरोक्त सभी"],"ci":1,"exp":"Ex: • अशोक के शिलालेख ब्राह्मी और खरोष्ठी दोनों लिपियों में लिखे गए थे। • ब्राह्मी भारतीय उपमहाद्वीप में अशोक के अधिकांश शिलालेखों के लिए उपयोग की जाने वाली प्राथमिक लिपि थी। • खरोष्ठी का उपयोग विशेष रूप से साम्राज्य के उत्तर-पश्चिमी हिस्सों (आधुनिक पाकिस्तान और अफगानिस्तान) में पाए गए शिलालेखों के लिए किया गया था, जैसे कि शाहबाजगढ़ी और मनसेहरा शिलालेख।"},{"id":26,"txt":"बौद्ध धर्म के संदर्भ में, निम्नलिखित में से कौन सा शब्द \"तथागत\" का सबसे अच्छा वर्णन करता है?","ref":"","opts":["भिक्षुओं की सभा","बौद्ध शिक्षा के केंद्र","धम्म के सिद्धांतों के रक्षक","जिसने सत्य को प्राप्त कर लिया है"],"ci":3,"exp":"Ex: • 'तथागत' एक संस्कृत और पाली शब्द है जिसका उपयोग बुद्ध स्वयं को संदर्भित करने के लिए सबसे अधिक बार करते थे। • इसका शाब्दिक अनुवाद है \"वह जो इस प्रकार चला गया है\" ) (तथा-गत) या \"वह जो इस प्रकार आया है\" (तथा-अगता)। यह उस व्यक्ति को दर्शाता है जो मुक्ति के मार्ग पर चल चुका है, पुनर्जन्म के चक्र से आगे बढ़ चुका है और परम सत्य (निर्वाण) प्राप्त कर चुका है।"},{"id":27,"txt":"निम्नलिखित में से कौन सी मंदिर वास्तुकला की पंचायतन शैली की विशेषताएं हैं?\nA. क्रूसीकृत भूमि योजना\nB. मुख्य मंदिर को अन्य मंदिरों के क्रम में रखा गया है\nC. सीढ़ियों का ज़िग-ज़ैग पैटर्न\nD. चार सहायक तीर्थ\nनीचे दिए गए कोड का उपयोग करके सही उत्तर चुनें:","ref":"","opts":["केवल ए और बी","केवल बी, सी और डी","केवल A, C और D","केवल सी और डी"],"ci":2,"exp":"Ex: • पंचायतन शैली एक शास्त्रीय वास्तुशिल्प लेआउट है जिसका उपयोग मुख्य रूप से हिंदू मंदिर वास्तुकला में किया जाता है, विशेष रूप से मंदिर निर्माण की नागर (उत्तर भारतीय) शैली के भीतर। उदाहरण: • दशावतार मंदिर (देवगढ़, उत्तर प्रदेश) • कंदरिया महादेव मंदिर और लक्ष्मण ) मंदिर (खजुराहो, मध्य प्रदेश) • ब्रह्मेश्वर मंदिर और लिंगराज मंदिर (भुवनेश्वर, ओडिशा) • मुख्य मंदिर को अन्य मंदिरों के साथ सीधे क्रम या पंक्ति में नहीं रखा गया है। इसके बजाय, यह बिल्कुल केंद्र में एक ऊंचे आयताकार चबूतरे पर बनाया गया है, जबकि अन्य मंदिर इसे कोनों पर घेरते हैं।"},{"id":28,"txt":"निम्नलिखित पर विचार करें:\n1. मूर्तियां आम तौर पर अपने विषय में कामुक होती थीं।\n2. गर्भगृह (गर्भगृह) का वेस्टिबुलर (सामने का भाग) प्रवेश द्वार जिसे 'अंतराला' के नाम से जाना जाता है।\n3. आमतौर पर उत्तर या पूर्व दिशा की ओर मुख करके बनाया जाता है।\n4. मंदिर आमतौर पर हिंदू और जैन धर्म के होते हैं।\nमंदिर वास्तुकला की निम्नलिखित में से किस शैली का वर्णन ऊपर किया गया है?","ref":"","opts":["उड़ीसा शैली","खजुराहो शैली","सोलंकी शैली","नायक शैली"],"ci":1,"exp":"Ex: • खजुराहो शैली मंदिरों की आंतरिक और बाहरी दोनों दीवारों पर नक्काशीदार व्यापक, जटिल और कामुक विषयों के लिए विश्व स्तर पर प्रसिद्ध है। • खजुराहो मंदिर अत्यधिक एकीकृत संरचनाएं हैं जिनमें एक 'अंतराला' है, जो मंडप (सभा हॉल) और गर्भगृह (गर्भगृह) के बीच एक संक्रमणकालीन बरोठा के रूप में कार्य करता है। • इस शैली के अधिकांश मंदिर उत्तर दिशा या पूर्व दिशा की ओर मुख करके बनाए गए हैं। खजुराहो के मंदिर विशिष्ट रूप से हिंदू (वैष्णव और शैव) और जैन देवताओं दोनों को समर्पित हैं, जो चंदेला राजवंश के दौरान धर्मों के सामंजस्यपूर्ण मिश्रण को दर्शाते हैं।"},{"id":29,"txt":"निम्नलिखित में से कौन सा मंदिर युग्म और उनकी संबंधित वास्तुकला शैली सही ढंग से मेल खाती है?","ref":"","opts":["मोढेरा सूर्य मंदिर - सोलंकी","लक्ष्मण मंदिर - कलिंग","लिंगराज मंदिर - विजयनगर","विरुपाक्ष मंदिर - चोल"],"ci":0,"exp":"Ex: • गुजरात के मोढेरा में सूर्य मंदिर का निर्माण 11वीं शताब्दी के दौरान सोलंकी वंश (जिसे गुजरात के चालुक्य भी कहा जाता है) के राजा भीम प्रथम के संरक्षण में किया गया था। यह मारू-गुर्जरा (सोलंकी) स्थापत्य शैली का एक प्रमुख उदाहरण है। • लक्ष्मण मंदिर खजुराहो, मध्य प्रदेश में स्थित है, और इसे चंदेल राजवंश द्वारा नागर शैली (विशेष रूप से मध्य भारतीय उप-विद्यालय) में बनाया गया था। • ओडिशा के भुवनेश्वर में लिंगराज मंदिर, कलिंग वास्तुकला शैली (मुख्य रूप से सोमवमसी राजवंश द्वारा निर्मित) का चरम है। • कर्नाटक के हम्पी में विरुपाक्ष मंदिर, विजयनगर साम्राज्य के तहत विजयनगर/द्रविड़ शैली में बनाया गया है।"},{"id":30,"txt":"भारत के सांस्कृतिक इतिहास के संदर्भ में, आनंद, सारिपुत्त और मोग्गल्लाना को इस प्रकार याद किया जाता है:","ref":"","opts":["बुद्ध के शिष्य","वैष्णव विद्वान","जैन साधु","संगम कवि"],"ci":0,"exp":"Ex: • आनंद गौतम बुद्ध के पहले चचेरे भाई और उनके सबसे समर्पित, निकटतम शिष्यों में से एक थे। उन्होंने 25 वर्षों तक बुद्ध के निजी परिचारक के रूप में कार्य किया और अपनी अविश्वसनीय स्मृति के लिए प्रसिद्ध थे, जिसने प्रथम बौद्ध संगीति के दौरान बुद्ध के प्रवचनों (सुत्त पिटक) को सुनाने में मदद की। • सारिपुत्त और मोग्गल्लाना बुद्ध के दो प्रमुख पुरुष शिष्य थे। सारिपुत्त को उनकी गहन बुद्धि और अभिधम्म पर महारत के लिए जाना जाता था, जबकि मोग्गल्लाना अपनी आध्यात्मिक और अलौकिक शक्तियों के लिए प्रसिद्ध थे। दोनों की मृत्यु बुद्ध से पहले हुई।"},{"id":31,"txt":"निम्नलिखित कथनों पर विचार करें -\nA. विभिन्न धार्मिक संप्रदायों के प्रति सहिष्णुता\nB. अहिंसा\nC. वृक्षारोपण जैसे कल्याणकारी उपाय\nD. बड़ों की आज्ञा मानना\nई. जरूरतमंदों के प्रति उदारता\nउपरोक्त में से कौन अशोक की धम्म नीति के सिद्धांत थे?","ref":"","opts":["केवल ए, बी और सी","केवल ए, डी और ई","केवल डी और ई","उपरोक्त सभी"],"ci":3,"exp":"Ex: सम्राट अशोक के धम्म के मूल सिद्धांतों में शामिल हैं: • विभिन्न धार्मिक संप्रदायों के प्रति सहिष्णुता: अशोक ने सभी धार्मिक समूहों के बीच आपसी सम्मान और सद्भाव की वकालत की। • अहिंसा: अहिंसा (जीवित प्राणियों को नुकसान न पहुंचाना) और पशु बलि पर प्रतिबंध के माध्यम से अभ्यास किया जाता है। • कल्याणकारी उपाय: इसमें पेड़ लगाना, कुएँ खोदना और अस्पताल बनाना जैसे सार्वजनिक कार्य शामिल हैं। • बड़ों का आज्ञापालन: माता-पिता, शिक्षकों और बड़ों के प्रति सम्मान और उचित कर्तव्य पर जोर दिया गया। • जरूरतमंदों के प्रति उदारता: गरीबों, निराश्रितों और संतों के प्रति दान और उदारता को बढ़ावा दिया।"},{"id":32,"txt":"बलबन के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. वह एक इल्बारी तुर्क था और उसकी वंशावली प्रसिद्ध ईरानी राजवंश, 'अफरासियाब राजवंश' से जुड़ी है।\nB. वह सुल्तान की उपाधि धारण करने वाला दिल्ली का पहला शासक था।\nC. वह अलाउद्दीन मसूद शाह के शासनकाल के दौरान अमीर-ए-हाजिब और नासिरुद्दीन महमूद के शासनकाल के दौरान नायब-ए-मुमलिकत थे।\nD. गुजरात अभियान के दौरान इल्तुतमिश ने अपने गुलाम बलबन को खरीद लिया।\nउपरोक्त कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["केवल ए, बी और सी","केवल ए, सी और डी","A और C केवल","केवल सी और डी"],"ci":2,"exp":"Ex: • इल्तुतमिश सुल्तान की उपाधि धारण करने वाला दिल्ली का पहला शासक था। • इल्तुतमिश ने ग्वालियर अभियान के दौरान बलबन को खरीद लिया था।"},{"id":33,"txt":"निम्नलिखित जोड़ियों पर विचार करें: प्रमुख विभाग संबंधित शासक\nA. तुर्कान-ए-चहलगानी - इल्तुतमिश\nB. दीवान-ए-बरीद - जलालुद्दीन खिलजी\nC. दीवान-ए-वक़ूफ़ - बलबन\nD. दीवान-ए-रियासत - अलाउद्दीन खिलजी\nउपरोक्त में से सही सुमेलित जोड़ियों की संख्या है:","ref":"","opts":["केवल एक","केवल दो","केवल तीन","चारों"],"ci":1,"exp":"Ex: • दीवान-ए-बरीद (खुफिया विभाग) - बलबन • दीवान-ए-वक्फ (व्यय विभाग) - जलालुद्दीन खिलजी"},{"id":34,"txt":"अलाउद्दीन खिलजी के दक्षिण भारत अभियान के संबंध में निम्नलिखित जानकारी पर विचार करें: स्थान राजवंश शासक\nA. देवगिरि - यादव - रामचन्द्र देव\nB. वारंगल - होयसल - प्रतापरुद्र देव\nC. द्वारसमुद्र - काकतीय - वीर बल्लाल देव III\nD. मदुरै - पंड्या - वीरा पंड्या, सुंदरा पंड्या\nउपरोक्त पंक्तियों में बेमेल जानकारी की संख्या है/हैं:","ref":"","opts":["केवल एक","केवल दो","केवल तीन","चारों"],"ci":1,"exp":"Ex: स्थान राजवंश शासक वारंगल - काकतीय - प्रतापरुद्र देव द्वारसमुद्र - होयसल - वीर बल्लाला देव तृतीय"},{"id":35,"txt":"मुहम्मद बिन तुगलक के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. वह पहला सुल्तान था जिसने नहरें बनवाईं।\nB. उसने कांसे के सिक्कों के स्थान पर चाँदी के सिक्के चलाये, जिन्हें 'बिरंज' कहा जाता था।\nC. इब्न बतूता के अनुसार उसने 'दीनार' नामक सोने का सिक्का चलाया।\nउपरोक्त में से कौन सा कथन गलत है/हैं?","ref":"","opts":["A और B केवल","केवल ए और सी","केवल बी और सी","उपरोक्त में से कोई नहीं"],"ci":0,"exp":"Ex: • गयास-उद-दीन तुगलक पहला सुल्तान था जिसने नहरें बनवाईं। • मुहम्मद बिन तुगलक ने चाँदी के सिक्कों के स्थान पर काँसे/ताँबे के सिक्के चलाये, जिन्हें 'बिरंज' कहा जाता था।"},{"id":36,"txt":"सूची-I (प्रांतीय स्थापत्य शैली) को सूची-II (निर्मित भवन) के साथ सुमेलित करें और सही कोड चुनें-सूची-I सूची-II\nA. बंगाल मैं. आजी मस्जिद\nB. मालवा ii. अटाला मस्जिद\nC. जौनपुर iii. शाह-ए-हमदान मस्जिद\nD. कश्मीर iv. अदीना मस्जिद\nकोड: ए बी सी डी ए बी सी डी","ref":"","opts":["iv मैं ii iii","i iv iii ii","i ii iii iv","iii ii iv i"],"ci":0,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":37,"txt":"'तुज़ुक-ए-बाबुरी' के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. हुमायूं के शासनकाल में पयंदा खान ने इसका फ़ारसी में अनुवाद किया।\nB. अकबर के शासनकाल में अब्दुल रहीम खान-ए-खानन ने इसका अरबी में अनुवाद किया।\nC. 'पावेट डी कोर्टेइल' ने इसका पुर्तगाली भाषा में अनुवाद किया।\nउपरोक्त में से गलत कथन का चयन करें:","ref":"","opts":["केवल ए और बी","B और C केवल","केवल बी","उपरोक्त में से कोई नहीं"],"ci":1,"exp":"Ex: • अकबर के शासनकाल के दौरान अब्दुल रहीम खान-ए-खानन ने 'तुजुक-ए-बाबुरी' का फारसी में अनुवाद किया। • पैवेट डी कोर्टेइले ने इसका फ्रांसीसी भाषा में अनुवाद किया।"},{"id":38,"txt":"सूची-I (मुगल-युग के विद्वानों) को सूची-II (पुस्तकें) के साथ सुमेलित करें और सही कोड चुनें: सूची-I सूची-II\nA. मिर्ज़ा हैदर दुगलत I. चाहर चमन\nB. चंद्रभान द्वितीय. तारीख-ए-शाही\nC. अहमद यादगार iii. तारीख-ए-रशीदी\nD. भीमसेन सक्सैना iv. नुस्खा-ए-दिलकुशा\nकोड: ए बी सी डी ए बी सी डी","ref":"","opts":["iii मैं ii iv","i ii iii iv","ii iii iv i","iv ii i iii"],"ci":0,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":39,"txt":"निम्नलिखित में से कौन से विद्वान शाहजहाँ के दरबारी विद्वानों में शामिल नहीं थे?\nA. चंद्रभान बी. मुहम्मद वारिस\nC. मोतमिद खान डी. इनायत खान\nई. खाफी खान एफ. सुरजनराय भंडारी\nनीचे दिए गए कोड की सहायता से सही उत्तर चुनें:","ref":"","opts":["केवल ए, सी और ई","केवल बी, डी और ई","C, E और F केवल","केवल डी, ई और एफ"],"ci":2,"exp":"Ex: शाहजहाँ के दरबारी विद्वान: • मोहम्मद अमीन काजविनी • अब्दुल हमीद लाहौरी • मुहम्मद वारिस • इनायत खान • चंद्रभान • जहाँगीर के दरबारी विद्वान: • मुतमिद खान औरंगजेब के दरबारी विद्वान: • काज़िम सिराजी • अकील खान • भीमसेन सक्सेना • ईश्वरदास नागर • सुरजनराय भंडारी • खपी खान"},{"id":40,"txt":"निम्नलिखित में से कौन सी पेंटिंग जहाँगीर के दरबारी चित्रकार अबुल हसन द्वारा बनाई गई थी?\nA. ग्लोब पर गरीबी का शिकार करते हुए खड़े जहाँगीर की पेंटिंग।\nB. जहाँगीर के हाथ में अकबर का चित्र।\nC. एक पेड़ पर असंख्य गिलहरियों की पेंटिंग।\nD. फ़ारसी सम्राट शाह अब्बास को गले लगाते हुए जहाँगीर की पेंटिंग।\nकोड :","ref":"","opts":["केवल ए, बी, और सी","केवल बी, सी और डी","केवल बी और सी","उपरोक्त सभी"],"ci":3,"exp":"Ex: जहाँगीर ने अबुल हसन को 'नादिर-उल-ज़मान' की उपाधि प्रदान की। उन्होंने 'तुज़ुक-ए-जहाँगीरी' के मुख्य कवर पेज का भी चित्रण किया।"},{"id":41,"txt":"औरंगजेब के शासनकाल के दौरान हुए विभिन्न विद्रोहों के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. बुंदेला विद्रोह छत्रसाल द्वारा शुरू किया गया था और चंपत राय द्वारा जारी रखा गया था।\nB. सतनामी विद्रोह का नेतृत्व राजाराम ने किया था।\nC. उत्तर-पश्चिम सीमांत प्रांत के आदिवासी विद्रोह का नेतृत्व वीरभान और अजमल खान ने किया था।\nउपरोक्त में से कौन सा कथन गलत है/हैं?","ref":"","opts":["केवल ए","केवल ए और बी","केवल बी और सी","उपरोक्त सभी"],"ci":3,"exp":"Ex: • छत्रसाल बुंदेला का विद्रोह: चंपत राय द्वारा शुरू किया गया और छत्रसाल द्वारा जारी रखा गया। राजधानी: ओरछा. • सतनामी विद्रोह: केंद्र: नारनौल (हरियाणा); नेतृत्व: वीरभान. • जाट किसानों का विद्रोह: नेतृत्व: गोकुला और राजाराम। • उत्तर-पश्चिम सीमांत प्रांत का जनजातीय विद्रोह: नेतृत्व: भागू और अजमल खान।"},{"id":42,"txt":"सूची-I (प्रशासनिक पद) को सूची-II (संबंधित कार्य) के साथ मिलाएं और सही कोड चुनें: सूची-I सूची-II\nA. मुहतासिब आई. नैतिकता के निरीक्षक\nB. दीवान-ए-सादात ii. नौसेना के प्रमुख\nC. आमिल-गुज़ार iii. धार्मिक मामलों के प्रमुख\nD. मीर-ए-बहार iv. राजस्व अधिकारी\nकोड: ए बी सी डी ए बी सी डी","ref":"","opts":["मैं iii iv ii","iii i iv ii","i iii ii iv","iii ii i iv"],"ci":0,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":43,"txt":"मुगल काल के सैन्य प्रशासन के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. अहादी सेना में बारगीर के पास अपना कोई हथियार या घोड़ा नहीं था।\nB. अहदी सेना में सिलेदार के पास अपने हथियार और घोड़े होते थे।\nC. अहशाम लड़ाकू सैनिक थे और सहबंदियों ने राजस्व संग्रह में सहायता की थी।\nउपरोक्त कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["केवल ए और बी","केवल सी","उपरोक्त सभी","उपरोक्त में से कोई नहीं"],"ci":2,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":44,"txt":"सल्तनत-युग की वास्तुकला के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. तुगलककालीन इमारतों में सेल्जुक शैली का प्रभाव दिखाई देता है।\nB. अलाई मीनार में पहली बार घोड़े की नाल के आकार का मेहराब बनाया गया था।\nC. इल्तुतमिश का मकबरा भारत में शुद्ध इस्लामी शैली में बना पहला मकबरा है।\nउपरोक्त में से कौन सा कथन गलत है/हैं?","ref":"","opts":["केवल ए","केवल ए और बी","केवल सी","उपरोक्त सभी"],"ci":3,"exp":"Ex: • तुगलककालीन इमारतों में सलामी (ढलानदार दीवार) शैली का प्रभाव दिखाई देता है। • घोड़े की नाल के आकार की मेहराब का निर्माण पहली बार अलाई दरवाजे में किया गया था। • बलबन का मकबरा (मेहराब) भारत में शुद्ध इस्लामी शैली में निर्मित पहला मेहराब है।"},{"id":45,"txt":"नस्क और मुक्ताई हैं-","ref":"","opts":["सल्तनत काल के दौरान टिन-प्लेटिंग की विभिन्न विधियाँ प्रचलित थीं।","सल्तनत काल में प्रचलित भू-राजस्व संग्रहण की विधियाँ।","सल्तनत काल के विभिन्न राजस्व अधिकारी।","शेरशाह सूरी के समय में डाक एवं चौकी व्यवस्था का प्रबंधन करने वाले अधिकारी।"],"ci":1,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":46,"txt":"सल्तनत-युग के साहित्य के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. सूफीवाद के बारे में जानकारी अमीर खुसरो की पुस्तक 'इजाज़-ए-खुसरवी' से मिलती है।\nB. अबू बक्र इसामी की किताब 'मिफ्ता-उल-फुतुह' में पहली बार चरखे का जिक्र किया गया है।\nउपरोक्त में से गलत कथन का चयन करें:","ref":"","opts":["केवल ए","बी केवल","ए और बी दोनों","न तो ए और न ही बी"],"ci":1,"exp":"Ex: चरखे का पहला उल्लेख अबू बक्र इसामी की किताब 'फुतुह-उस-सलातीन' में मिलता है।"},{"id":47,"txt":"मुग़ल साम्राज्य के संबंध में निम्नलिखित जोड़ियों पर विचार करें: विद्वान विवरण\nA. फ़ैज़ी - चित्रकला विभाग (चित्रशाला) के प्रमुख\nB. अबुल फज़ल - दीन-ए-इलाही के मुख्य पुजारी\nC. टोडरमल - न्याय विभाग के प्रमुख\nD. बीरबल - 'आइन-ए-दहसाला' प्रणाली लागू की\nउपरोक्त में से कौन सा/से जोड़ा बेमेल है/हैं?","ref":"","opts":["केवल A, C और D","केवल ए और डी","केवल बी और सी (4) उपरोक्त सभी"],"ci":0,"exp":"Ex: • फ़ैज़ी - अनुवाद विभाग के प्रमुख • टोडर मल - भूमि राजस्व सुधार और 'आईन-ए-दहसाला' प्रणाली लागू की। • बीरबल - न्याय विभाग का प्रमुख"},{"id":48,"txt":"उस विकल्प का चयन करें जिसमें विजयनगर साम्राज्य की राजधानियों को कालानुक्रमिक क्रम में व्यवस्थित किया गया है:","ref":"","opts":["विजयनगर, अनेगोंडी, चंद्रगिरि, पेनुकोंडा","अनेगोंडी, विजयनगर, पेनुकोंडा, चंद्रगिरि","पेनुकोंडा, चंद्रगिरि, अनेगोंडी, विजयनगर","अनेगोंडी, पेनुकोंडा, विजयनगर, चंद्रगिरि"],"ci":1,"exp":"Ex: • हरिहर और बुक्का ने विजयनगर साम्राज्य की स्थापना की और अनेगोंडी को अपनी राजधानी बनाया (संगामा राजवंश)। • बुक्का ने विजयनगर शहर को अपनी राजधानी बनाया (संगामा राजवंश)। • अराविडु राजवंश के संस्थापक तिरुमाला ने पेनुकोंडा को अपनी राजधानी बनाया। • इसके बाद चंद्रगिरि को राजधानी बनाया गया।"},{"id":49,"txt":"निम्नलिखित कथनों पर विचार करें:\nA. हरिहर प्रथम ने बहमनी साम्राज्य से बेलगाम और गोवा पर विजय प्राप्त की।\nB. बुक्का और बहमनी शासक मुहम्मद शाह प्रथम के बीच युद्ध में पहली बार बारूद का प्रयोग किया गया।\nC. सलुवा राजवंश के स्थान पर तुलुव राजवंश की घटना को 'द्वितीय हड़पना (द्वितीय बालापहरा)' के रूप में जाना जाता है।\nउपरोक्त कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["केवल ए","केवल बी","B और C केवल","उपरोक्त सभी"],"ci":2,"exp":"Ex: • हरिहर द्वितीय ने बहमनी साम्राज्य से बेलगाम और गोवा पर विजय प्राप्त की। • सालुवा राजवंश की जगह लेने वाले तुलुवा राजवंश की घटना को 'द्वितीय हड़पना' (द्वितीय बालापहरा) के रूप में जाना जाता है, जिसमें नरसा नायक के पुत्र वीरा नरसिम्हा ने इम्मादी नरसिम्हा की हत्या कर दी थी।"},{"id":50,"txt":"कृष्णदेवराय के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. उनके दरबारी कवि मल्लनार्य ने कन्नड़ भाषा में भाव-चिंता-रत्न और वीरशैवमृत की रचना की।\nB. उनके शासनकाल के दौरान आए पुर्तगाली यात्री डोमिंगो पेस ने सती प्रथा का एक मार्मिक प्रत्यक्षदर्शी विवरण प्रदान किया।\nC. उन्होंने ओडिशा के गजपति प्रतापरुद्रदेव को चार बार हराया और उनकी बेटी से शादी की।\nउपरोक्त कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["केवल ए और बी","केवल बी और सी","A और C केवल","उपरोक्त सभी"],"ci":2,"exp":"Ex: पुर्तगाली यात्री डुआर्टे बारबोसा ने सती प्रथा का मार्मिक विवरण प्रस्तुत किया है।"},{"id":51,"txt":"विजयनगर काल के दौरान प्रांतीय प्रशासन के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. कृष्णदेवराय के शासनकाल के दौरान, विजयनगर साम्राज्य को 6 प्रांतों में विभाजित किया गया था।\nB. प्रांतीय गवर्नर (प्रांतपति) को नए सिक्के जारी करने और नए कर लगाने का अधिकार था लेकिन भूमि अनुदान प्रदान करने का अधिकार नहीं था।\nC. नयंकर प्रणाली के तहत, सैन्य कमांडरों (नायकों) को प्राप्त भूमि कर-मुक्त और वंशानुगत थी।\nD. मान्यम अयंगार को प्राप्त वंशानुगत भूमि थी, लेकिन यह कर-मुक्त नहीं थी।\nउपरोक्त में से कितने कथन सही हैं/हैं?","ref":"","opts":["केवल एक","केवल दो","केवल तीन","चारों"],"ci":0,"exp":"Ex: • प्रांतीय गवर्नर की शक्तियों में शामिल थे: नए सिक्के जारी करना, नए कर लगाना, नए कानून बनाना और भूमि अनुदान प्रदान करना। • नयनकर प्रणाली के तहत, अमरम भूमि वंशानुगत थी लेकिन कर-मुक्त नहीं थी। • अयंगार कार्यालय वंशानुगत था और इसे गिरवी रखा या बेचा जा सकता था। मान्यम अयंगरों द्वारा प्राप्त वंशानुगत और कर-मुक्त भूमि थी। ) 54. सूची-I (सूफ़ी साहित्य के विभिन्न रूप) को सूची-II (विवरण) के साथ सुमेलित करें और सही कोड चुनें-सूची-I सूची-II A. मसनवी i. सूफ़ी संतों के लिखित पत्र बी. तज़किरा ii. किसी विशिष्ट विषय पर लिखी गई लघु पुस्तक सी. मकतूबात iii. कथात्मक कविताएँ डी. रिसाला iv. सूफी संतों की शिक्षाओं, संवादों आदि का संकलन ई. मालफूज़त बनाम सूफी संतों की जीवनियां कोड: ए बी सी डी ई ए बी सी डी ई [1] ii i iii v iv [2] iii i v ii iv [3] iii v i ii iv [4] i ii iv v iii [5] प्रश्न का प्रयास नहीं किया गया"},{"id":52,"txt":"ख्वाजा मोइनुद्दीन चिश्ती के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. वह 1182 ई. में पृथ्वीराज चौहान के समय में मुहम्मद गोरी की सेना के साथ भारत आया था।\nB. जहाँगीर की बेटी जहाँआरा ने 'मुनिस-उल-अरवाह' शीर्षक से उनकी जीवनी लिखी।\nC. अकबर ने उनकी दरगाह पर 14 बार यात्रा की और 18 गाँव दान में दिये।\nउपरोक्त में से सही कथन का चयन करें:","ref":"","opts":["केवल ए और बी","केवल बी","सी केवल","उपरोक्त सभी"],"ci":2,"exp":"Ex: • ख्वाजा साहब 1192 ई. में भारत आये। • शाहजहाँ की बेटी जहाँआरा ने 'मुनिस-उल-अरवाह' शीर्षक से उनकी जीवनी लिखी।"},{"id":53,"txt":"नक्शबंदी सिलसिले के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. उन्होंने 'वहदत-उल-वुजूद' की विचारधारा की सदस्यता ली।\nB. वे संगीत में विश्वास करते थे.\nC. इसके संस्थापक बहाउद्दीन नक्शबंदी थे।\nउपरोक्त में से कौन सा कथन गलत है/हैं?","ref":"","opts":["A और B केवल","केवल बी और सी","केवल ए और सी","उपरोक्त में से कोई नहीं"],"ci":0,"exp":"Ex: • उन्होंने 'वाहदत-उल-शुहुद' की विचारधारा की सदस्यता ली। • वे संगीत में विश्वास नहीं रखते थे।"},{"id":54,"txt":"निम्नलिखित कथनों पर विचार करें और गलत कथन की पहचान करें:","ref":"","opts":["गुरु नानक देव ने गुरुमुखी लिपि का निर्माण किया।","गुरु अंगद देव ने लंगर व्यवस्था को नियमित किया।","गुरु अमर दास जी ने 22 गद्दियों की स्थापना की।","गुरु अर्जन देव जी ने हरमंदिर साहिब का निर्माण करवाया।"],"ci":0,"exp":"Ex: • गुरु अंगद देव जी ने गुरुमुखी लिपि का निर्माण किया। गुरु ग्रंथ साहिब गुरुमुखी लिपि में लिखा गया है। • उन्होंने मॉल अखाड़ा (कुश्ती अखाड़ा) की शुरुआत की।"},{"id":55,"txt":"शंकरदेव के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. उन्होंने कृष्ण के प्रति सगुण भक्ति (विशेषताओं वाले देवता की पारंपरिक पूजा) का अभ्यास किया।\nB. उनके प्रार्थना कक्षों को सत्र या नामघर कहा जाता है। सत्रिया नृत्य की उत्पत्ति यहीं से हुई।\nC. उन्होंने अपनी शिक्षाएँ असमिया भाषा में दीं।\nउपरोक्त कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["केवल ए और बी","B और C केवल","केवल सी","उपरोक्त सभी"],"ci":1,"exp":"Ex: उन्होंने कृष्ण की पूजा निर्गुण रूप (निराकार/बिना गुणों) में की। उन्होंने एकसारन संप्रदाय की स्थापना की। उन्हें 'असम के चैतन्य महाप्रभु' के नाम से जाना जाता है।"},{"id":56,"txt":"रामानुजाचार्य के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. उन्होंने द्वैताद्वैत (द्वैतवाद-अद्वैतवाद) दर्शन का प्रतिपादन किया।\nB. उन्होंने सर्वदर्शन संग्रह नामक पुस्तक लिखी।\nC. चोल शासक कुलोत्तुंगा द्वितीय ने भगवान विष्णु की मूर्ति को समुद्र में फेंकवा दिया था; उन्होंने उस मूर्ति को तिरूपति बालाजी में पुनः स्थापित करवाया।\nउपरोक्त कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["केवल ए","केवल बी और सी","सी केवल","उपरोक्त सभी"],"ci":2,"exp":"Ex: • उन्होंने विशिष्टाद्वैत (योग्य अद्वैतवाद) दर्शन का प्रतिपादन किया। • पुस्तक: श्रीभाष्य। • सर्वदर्शन संग्रह पुस्तक माधवाचार्य की है। • द्वैताद्वैत (द्वैतवाद-अद्वैतवाद) दर्शन - निम्बार्काचार्य"},{"id":57,"txt":"'महाराष्ट्र धर्म' (महाराष्ट्र धार्मिक परंपरा) के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. इसकी उत्पत्ति पंढरपुर (महाराष्ट्र) से हुई।\nB. ज्ञानेश्वर (ज्ञानेश्वर), एकनाथ और नामदेव जैसे संत वारकरी संप्रदाय से जुड़े हैं।\nC. समर्थ गुरु रामदास और तुकाराम धारकरी संप्रदाय से जुड़े हैं।\nउपरोक्त कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["A और B केवल","केवल ए","केवल बी और सी","केवल बी"],"ci":0,"exp":"Ex: • संत तुकाराम वारकरी संप्रदाय से सम्बंधित हैं। • शिवाजी ने उन्हें वित्तीय सहायता प्रदान करने का प्रयास किया, लेकिन उन्होंने प्रस्ताव अस्वीकार कर दिया।"},{"id":58,"txt":"1857 के विद्रोह की विफलता से संबंधित निम्नलिखित कथनों पर विचार करें-\nA. शिक्षित भारतीयों ने विद्रोह का समर्थन नहीं किया क्योंकि वे इसे पिछड़ी सोच वाले और रूढ़िवादी सामंती व्यवस्था के समर्थक के रूप में देखते थे।\nB. साहूकारों और व्यापारियों ने विद्रोह का समर्थन नहीं किया क्योंकि उन्हें लगा कि ब्रिटिश संरक्षण में उनके हितों की बेहतर सुरक्षा होगी।\nC. हिंदुओं और मुसलमानों के बीच एकता की कमी के कारण विद्रोह बुरी तरह से संगठित था और अपने लक्ष्य को प्राप्त करने में विफल रहा।\nD. 1857 का विद्रोह किसानों, छोटे जमींदारों (ज़मीदारों), कारीगरों आदि का समर्थन जुटाने में विफल रहा।\nउपरोक्त में से कितने कथन गलत हैं/हैं?","ref":"","opts":["केवल एक","केवल दो","केवल तीन","उपरोक्त सभी"],"ci":1,"exp":"Ex: • हिन्दू और मुसलमानों में पूर्ण एकता थी। • 1857 के विद्रोह को किसानों, छोटे जमींदारों (ज़मीदारों), कारीगरों आदि का समर्थन प्राप्त था।"},{"id":59,"txt":"महारानी विक्टोरिया की 1858 की घोषणा से संबंधित निम्नलिखित कथन पर विचार करें-\nA. उद्घोषणा में नस्ल या जाति के बावजूद सरकारी सेवाओं में समान अवसर प्रदान करने का वादा किया गया था।\nB. इस उद्घोषणा में भारत के लोगों को ब्रिटिश अधिकारियों के हस्तक्षेप के बिना धार्मिक स्वतंत्रता का वादा किया गया था।\nC. लॉर्ड कैनिंग ने 1 नवंबर, 1858 को दिल्ली में महारानी विक्टोरिया की उद्घोषणा की।\nनिम्नलिखित में से कौन सा कथन सही है/हैं?","ref":"","opts":["A और B केवल","केवल बी और सी","केवल ए और सी","उपरोक्त सभी"],"ci":0,"exp":"Ex: लॉर्ड कैनिंग ने 1 नवम्बर, 1858 को इलाहाबाद में महारानी विक्टोरिया की उद्घोषणा की।"},{"id":60,"txt":"1857 के विद्रोह के संदर्भ में सूची-I (संबंधित अधिकारी) को सूची-II (संबंधित स्थान) के साथ सुमेलित करें-सूची-I सूची-II\nA. जेम्स आउट्राम I दिल्ली\nB. ह्यू व्हीली ii. लखनऊ\nC. जेम्स नील iii. कानपुर\nD. जॉन निकलोसन iv. बनारस\nकोड: ए बी सी डी ए बी सी डी","ref":"","opts":["iv ii iii i","ii iii iv मैं","i ii iv iii","iii ii iv i"],"ci":1,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":61,"txt":"एंग्लो-सिख प्रतिद्वंद्विता के दौरान घटित निम्नलिखित घटनाओं को कालानुक्रमिक रूप से व्यवस्थित करें-\nA. गुजरात की लड़ाई B. लाहौर की संधि\nC. अमृतसर की संधि D. भैरोवाल की संधि\nकोड :","ref":"","opts":["B – C – D – A","C – B – A – D","सी - बी - डी - ए","B – C – A – D"],"ci":2,"exp":"Ex: • अमृतसर की संधि (1809) ने सतलज नदी को सिखों और ब्रिटिश प्रभाव क्षेत्र के बीच सीमा रेखा के रूप में मान्यता दी। • प्रथम आंग्ल-सिख युद्ध में सिखों की हार के बाद लाहौर की संधि (8 मार्च, 1846) पर हस्ताक्षर किये गये। • कश्मीर के मुद्दे पर लाहौर की संधि के खिलाफ सिखों की नाराजगी के बाद भैरोवाल की संधि (दिसंबर, 1846) पर हस्ताक्षर किए गए। • गुजरात की लड़ाई (1849)- रावलपिंडी में सिख सेना हार गई और आत्मसमर्पण कर दिया। गुजरात चिनाब नदी के तट पर स्थित एक छोटा सा शहर है।"},{"id":62,"txt":"तीसरे आंग्ल-मैसूर युद्ध से संबंधित निम्नलिखित कथनों पर विचार करें:\nA. कॉर्नवालिस ने मराठों और निज़ाम के साथ त्रिपक्षीय गठबंधन बनाया।\nB. तीसरा आंग्ल-मैसूर युद्ध 'सेरिंगपट्टम की संधि' के साथ समाप्त हुआ।\nC. युद्ध का मुख्य कारण टीपू सुल्तान और त्रावणकोर के राजा के बीच जलकोट्टल और कन्नानोर के क्षेत्रों को लेकर विवाद था\nउपरोक्त कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["केवल ए और बी","केवल बी और सी","केवल सी","उपरोक्त सभी"],"ci":3,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":63,"txt":"एंग्लो-मराठा प्रतिद्वंद्विता के दौरान हुई निम्नलिखित घटनाओं को उनकी घटना के अनुसार कालानुक्रमिक रूप से व्यवस्थित करें-\nA. सूरत की संधि B. वडगांव की संधि\nC. बेसिन की संधि D. सालबाई की संधि","ref":"","opts":["ए - बी - डी - सी","A – D – B – C","C – B – A – D","B – C – D – A"],"ci":0,"exp":"Ex: • सूरत की संधि (1775 ई.) रघुनाथराव और अंग्रेजों के बीच हुई। • प्रथम आंग्ल-मराठा युद्ध के बाद वडगांव की संधि (1779 ई.) पर हस्ताक्षर किये गये। • द्वितीय आंग्ल-मराठा युद्ध के बाद बेसिन की संधि (1802 ई.) पर हस्ताक्षर किये गये। • पेशवा और अंग्रेजों के बीच सालबाई की संधि (1782 ई.) हुई।"},{"id":64,"txt":"भारतीय राष्ट्रीय कांग्रेस (आईएनसी) के विकास के संबंध में निम्नलिखित कथनों पर विचार करें-\nA. लाला लाजपत राय ने कांग्रेस के शुरुआती राष्ट्रवादियों पर हमला करने के लिए सुरक्षा-वाल्व सिद्धांत का इस्तेमाल किया।\nB. जॉर्ज यूल भारतीय राष्ट्रीय कांग्रेस के पहले अंग्रेज अध्यक्ष थे।\nC. गांधीजी ने पहली बार 1901 में कांग्रेस अधिवेशन में भाग लिया (कलकत्ता)\nD. सुरेंद्रनाथ बनर्जी 1885 में भारतीय राष्ट्रीय कांग्रेस (आईएनसी) के पहले सत्र में शामिल नहीं हुए।\nउपरोक्त में से कितने कथन सही हैं/हैं?","ref":"","opts":["केवल एक","केवल दो","केवल तीन","उपरोक्त सभी"],"ci":3,"exp":"Ex: • बदरुद्दीन तैयबजी भारतीय राष्ट्रीय कांग्रेस (आईएनसी) के पहले मुस्लिम अध्यक्ष थे। • सुरेंद्रनाथ बनर्जी कांग्रेस के पहले सत्र में शामिल नहीं हुए क्योंकि वह ठीक उसी समय कलकत्ता में भारतीय संघ के दूसरे राष्ट्रीय सम्मेलन का नेतृत्व कर रहे थे। • 1901 का कांग्रेस अधिवेशन कलकत्ता में हुआ और इसकी अध्यक्षता दिनशॉ वाचा ने की।"},{"id":65,"txt":"सूची-I (लेखक) को सूची-II (पुस्तकें)-सूची-I सूची-II के साथ सुमेलित करें\nA. दादाभाई नौरोजी I. भारत का आर्थिक इतिहास.\nB. आर.सी. दत्त द्वितीय. भारत में गरीबी और गैर-ब्रिटिश शासन।\nC. एस.एन. बनर्जी iii. निर्माण में एक राष्ट्र.\nD. लाला लाजपत राय iv. दुखी भारत.\nकोड: ए बी सी डी ए बी सी डी","ref":"","opts":["i ii iii iv","ii i iii iv","iv iii i ii","i ii iv iii"],"ci":1,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":66,"txt":"स्वतंत्रता सेनानियों-समाचार पत्र संपादक द्वारा संपादित समाचार पत्रों से संबंधित निम्नलिखित जोड़ियों पर विचार करें\nA. वकील - जी.पी. वर्मा\nB. इंडियन मिरर - एन.एन. सेन\nC. स्वदेशमित्रन - सुरेंद्रनाथ बनर्जी\nD. सुधारक - गोपाल कृष्ण गोखले\nउपरोक्त में से बेमेल जोड़ी को पहचानें:","ref":"","opts":["केवल ए","केवल बी और सी","केवल ए, बी और डी","सी केवल"],"ci":3,"exp":"Ex: 'स्वदेशमित्रन' समाचार पत्र जी. सुब्रमण्यम अय्यर द्वारा लिखा और संपादित किया गया था।"},{"id":67,"txt":"1892 के भारतीय परिषद अधिनियम के संबंध में गलत कथन को पहचानें-","ref":"","opts":["इस अधिनियम ने केंद्रीय विधान परिषद में अप्रत्यक्ष चुनाव की शुरुआत की।","इस अधिनियम ने परिषदों को वार्षिक वित्तीय विवरण (बजट) पर चर्चा करने की अनुमति दी","इस अधिनियम के द्वारा विधान परिषदों में आधिकारिक बहुमत कायम रखा गया।","परिषदों को पूरक प्रश्न पूछने की अनुमति नहीं थी।"],"ci":0,"exp":"Ex: 1909 के भारतीय परिषद अधिनियम (मॉर्ले-मिंटो सुधार) ने केंद्रीय विधान परिषदों और प्रांतीय विधान परिषदों में अप्रत्यक्ष चुनाव की शुरुआत की।"},{"id":68,"txt":"स्वदेशी आंदोलन (1903 – 08) के संबंध में निम्नलिखित कथनों पर विचार करें -\nA. स्वदेशी आंदोलन की औपचारिक घोषणा 7 अगस्त 1905 को की गई थी।\nB. बिना किसी सांप्रदायिक दंगे के आंदोलन शांतिपूर्ण था।\nC. सैयद हैदर रज़ा ने दिल्ली में आंदोलन का नेतृत्व किया।\nD. 1906 में राष्ट्रीय शिक्षा परिषद की स्थापना की गई।\nउपरोक्त में से सही कथनों को पहचानें-","ref":"","opts":["केवल ए और बी","केवल A, C और D","केवल बी, सी और डी","उपरोक्त सभी"],"ci":1,"exp":"Ex: स्वदेशी आंदोलन के चरम पर बंगाल में सांप्रदायिक दंगे भड़क उठे। ढाका के नवाब सलीमुल्लाह ने स्वदेशी आंदोलन का विरोध किया और मुसलमानों से इस आंदोलन में शामिल न होने का आग्रह किया क्योंकि यह मुस्लिमों के हित के खिलाफ था।"},{"id":69,"txt":"निम्नलिखित कथनों पर विचार करें -\nA. भारतीय स्वतंत्रता के लिए बर्लिन समिति की स्थापना श्यामजी कृष्ण वर्मा ने 'ज़िम्मरमैन योजना' के तहत की थी\nB. गदर पार्टी ने 1857 के विद्रोह के दौरान पंजाबियों द्वारा निभाई गई वफादारी की भूमिका की आलोचना की।\nC. लाला हरदयाल ग़दर पार्टी के संस्थापक अध्यक्ष थे।\nउपरोक्त में से सही कथन का चयन करें-","ref":"","opts":["केवल ए और बी","केवल ए और सी","बी केवल","उपरोक्त सभी"],"ci":2,"exp":"Ex: • भारतीय स्वतंत्रता के लिए बर्लिन समिति की स्थापना 1915 में वीरेंद्रनाथ चट्टोपाध्याय ने की थी। • बाबा सोहन सिंह भकना गदर पार्टी के संस्थापक अध्यक्ष थे।"},{"id":70,"txt":"निम्नलिखित में से कौन सा कथन अरुंडेल समिति के उद्देश्य का सबसे अच्छा वर्णन करता है?","ref":"","opts":["गदर आंदोलन के दौरान पंजाब में सरकारी मशीनरी द्वारा किए गए अत्याचारों की जांच करना।","न्यायपालिका में सुधार के लिए सिफारिशें करना।","सार्वजनिक सेवाओं में सुधार के लिए सिफारिशें करना।","केन्द्रीय एवं प्रांतीय विधान परिषदों के विस्तार हेतु सिफ़ारिशें करना।"],"ci":3,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":71,"txt":"होम रूल लीग आंदोलन के संबंध में निम्नलिखित कथनों पर विचार करें-\nA. एनी बेसेंट की गिरफ्तारी के विरोध में सुरेंद्रनाथ बनर्जी ने अपनी नाइटहुड की उपाधि त्याग दी।\nB. मदन मोहन मालवीय और एम.ए. जिन्ना होम रूल लीग के सदस्य थे।\nC. तिलक की लीगें मुख्य रूप से कर्नाटक, मध्य प्रांत, बरार और महाराष्ट्र (बॉम्बे शहर को छोड़कर) में सक्रिय थीं।\nD. पूर्ण स्वराज (पूर्ण स्वतंत्रता) की प्राप्ति होम रूल लीग आंदोलन का प्रमुख उद्देश्य था।\nउपरोक्त में से कितने कथन गलत हैं/हैं?","ref":"","opts":["केवल एक","केवल दो","केवल तीन","चारों"],"ci":1,"exp":"Ex: • ब्रिटिश साम्राज्य के भीतर स्वशासन (होम रूल) की प्राप्ति इस आंदोलन का प्रमुख उद्देश्य था। उनका लक्ष्य ब्रिटिश ताज के अधीन प्रभुत्व का दर्जा प्राप्त करना था। • सर एस.सुब्रमण्यम अय्यर ने एनी बेसेंट की गिरफ्तारी के विरोध में अपनी नाइटहुड का त्याग कर दिया।"},{"id":72,"txt":"निम्नलिखित घटनाओं को उनके घटित होने के आधार पर कालानुक्रमिक रूप से व्यवस्थित करें:\nA. दिल्ली षडयंत्र केस\nB. मेरठ षडयंत्र केस\nC. कानपुर षडयंत्र केस\nD. अलीपुर षडयंत्र केस\nकोड :","ref":"","opts":["D – C – B – A","C – B – D – A","डी - ए - सी - बी","C – B – A – D"],"ci":2,"exp":"Ex: • दिल्ली षड्यंत्र केस (1912) को 'हार्डिंग बम जांच' के नाम से भी जाना जाता है। बसंत कुमार, अमीर चंद और अवध बिहारी को दोषी पाया गया और मौत की सजा सुनाई गई। • अलीपुर षड़यंत्र केस (1908) डगलस किंग्सफोर्ड की हत्या के प्रयास से संबंधित है। खुदीराम बोस और प्रफुल्ल चाकी को दोषी पाया गया। खुदीराम बोस को फाँसी दे दी गई और प्रफुल्ल चाकी ने आत्महत्या कर ली। •कानपुर षड़यंत्र केस (1924) साम्यवादी क्रांतिकारियों पर मुक़दमे से संबंधित है। मुजफ्फर अहमद, शौकत उस्मानी, नलिनी गुप्ता और एस.ए. डांगे पर आरोप लगाए गए और उन्हें दोषी पाया गया। • मेरठ षड़यंत्र केस (1929) 31 कम्युनिस्ट श्रमिक नेताओं के मुकदमे से संबंधित है।"},{"id":73,"txt":"गांधीजी की प्रारंभिक सक्रियता से संबंधित निम्नलिखित कथनों पर विचार करें:\nA. चंपारण सत्याग्रह भारत में महात्मा गांधीजी का पहला सविनय अवज्ञा आंदोलन था।\nB. खेड़ा सत्याग्रह भारत में महात्मा गांधीजी का पहला असहयोग आंदोलन था।\nC. महात्मा गांधीजी ने भारत में अपनी पहली भूख हड़ताल अहमदाबाद मिल हड़ताल के दौरान की थी।\nD. मुस्लिम लीग और हैदराबाद के निज़ाम ने महात्मा गांधी द्वारा दक्षिण अफ्रीका में टॉल्स्टॉय फार्म की स्थापना में वित्तीय योगदान दिया।\nउपरोक्त में से कितने कथन सही हैं/हैं?","ref":"","opts":["केवल एक","केवल दो","केवल तीन","उपरोक्त सभी"],"ci":3,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":74,"txt":"'की अफेयर' घटना निम्नलिखित में से किस आंदोलन से संबंधित थी?","ref":"","opts":["वाइकोम सत्याग्रह","गुरुवायूर मंदिर सत्याग्रह","अकाली आंदोलन","कालाराम मंदिर प्रवेश आंदोलन."],"ci":2,"exp":"Ex: 'की अफेयर' घटना अकाली आंदोलन से जुड़ी थी. अकाली स्वर्ण मंदिर को ब्रिटिश और भ्रष्ट महंतों के नियंत्रण से मुक्त कराना चाहते थे। उन्होंने स्वर्ण मंदिर के तोशखाने की चाबियां अपने कब्जे में लेने की मांग की।"},{"id":75,"txt":"भारतीय स्वतंत्रता संग्राम के दौरान मंदिर प्रवेश आंदोलनों के संबंध में निम्नलिखित कथनों पर विचार करें-\nA. वाइकोम सत्याग्रह में सभी ऊंची जाति के लोगों ने सत्याग्रह समर्थक कांग्रेसियों का बहिष्कार करने का फैसला किया और उन्हें वोट न देने की शपथ ली।\nB. 1925 में, महारानी के साथ गांधीजी की मध्यस्थता के बाद, वैकोम में मंदिर अवर्णों (अछूतों) के लिए खोल दिया गया।\nC. 1936 में, त्रावणकोर के महाराजा ने सभी सरकार-नियंत्रित मंदिरों को जाति की परवाह किए बिना सभी हिंदुओं के लिए खोलने की घोषणा जारी की।\nउपरोक्त में से कितने कथन गलत हैं/हैं?","ref":"","opts":["केवल एक","केवल दो","उपरोक्त सभी","उपरोक्त में से कोई नहीं"],"ci":1,"exp":"Ex: • वाइकोम सत्याग्रह में केवल प्रतिक्रियावादी और रूढ़िवादी उच्च जाति के लोगों ने ही सत्याग्रह समर्थक कांग्रेसियों का विरोध किया। नायर सर्विस सोसाइटी (उच्च जाति) और नंबूदिरिस (जाति के अनुसार सर्वोच्च ब्राह्मण) के संगठनों ने अवर्णों के लिए मंदिर खोलने के पक्ष में प्रस्ताव पारित किया। • 1925 में, केवल मंदिर की ओर जाने वाली सड़कें खोल दी गईं और अछूतों के लिए मंदिर में प्रवेश अभी भी निषिद्ध था। इसके विरोध में गांधी जी अपने केरल दौरे के दौरान केरल के किसी भी मंदिर में नहीं गये।"},{"id":76,"txt":"निम्नलिखित कथनों पर विचार करें-\nA. व्यापार विवाद अधिनियम, 1929 औद्योगिक विवादों को दबाने के लिए प्रबंधन को मनमानी शक्तियां प्रदान करता है।\nB. गया सत्र में, भारतीय राष्ट्रीय कांग्रेस (आईएनसी) ने श्रमिकों और किसानों के हितों का समर्थन करने के लिए एक प्रस्ताव पारित किया।\nC. सुभाष बोस, जवाहरलाल नेहरू और लोकमान्य तिलक ऑल इंडिया ट्रेड यूनियन कांग्रेस (एआईटीयूसी) से जुड़े थे।\nनिम्नलिखित में से कौन सा कथन सही है/हैं?","ref":"","opts":["केवल ए और बी","B और C केवल","केवल सी","उपरोक्त सभी"],"ci":1,"exp":"Ex: यह अधिनियम स्पष्ट रूप से \"प्रबंधन को मनमानी शक्तियां प्रदान नहीं करता है, बल्कि औद्योगिक विवादों के निपटारे के लिए न्यायाधिकरणों की स्थापना का प्रावधान करता है।"},{"id":77,"txt":"असहयोग आंदोलन के निलंबन के बाद की गई क्रांतिकारी गतिविधियों के संबंध में निम्नलिखित कथनों पर विचार करें-\nA. चटगांव शस्त्रागार छापे के बाद, सूर्य सेन ने एक अनंतिम क्रांतिकारी सरकार की घोषणा की और ब्रिटिश शासन से स्वतंत्रता की घोषणा की।\nB. रामप्रसाद बिस्मिल ने लोगों से 'क्रांतिकारी षड्यंत्रों में काम न करने' और इसके बजाय कांग्रेस के नेतृत्व में एक राजनीतिक समूह के रूप में एकजुट होने का आग्रह किया।\nC. 'द फिलॉसफी ऑफ द बम' भगवती चरण वोहरा द्वारा लिखी गई थी।\nD. भगत सिंह स्वतंत्रता संग्राम में महात्मा गांधी के अहिंसक दृष्टिकोण के आलोचक थे।\nउपरोक्त में से कितने कथन सही हैं/हैं?","ref":"","opts":["केवल एक","केवल दो","केवल तीन","उपरोक्त सभी"],"ci":3,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":78,"txt":"सूची-I (आयोग/समिति) को सूची-II (स्थापना का वर्ष) के साथ सुमेलित करें - सूची-I सूची-II\nA. लिनलिथगो आयोग i. 1923\nB. हंटर कमीशन ii. 1914\nC. ली कमीशन iii. 1926\nD. तट समिति iv. 1919\nकोड: ए बी सी डी ए बी सी डी","ref":"","opts":["iv iii i ii","ii iv iii i","iv i iii ii","iii iv मैं ii"],"ci":3,"exp":"Ex: • लिनलिथगो आयोग (1926), जिसे आधिकारिक तौर पर कृषि पर रॉयल कमीशन के रूप में जाना जाता है, भारत की कृषि और ग्रामीण अर्थव्यवस्था की स्थिति की जांच और रिपोर्ट करने के लिए स्थापित किया गया था। • हंटर कमीशन (1919) जलियांवाला बाग नरसंहार की जांच के लिए गठित एक जांच समिति थी। • ली आयोग (1923) की स्थापना सिविल सेवाओं में यूरोपीय और भारतीयों के लिए भर्ती के तरीकों पर गौर करने के लिए की गई थी। • कोमागाटा मारू जहाज पर यात्रियों को कानूनी सहायता प्रदान करने के लिए वैंकूवर (कनाडा) में स्थानीय भारतीय समुदाय द्वारा शोर समिति (1914) का गठन किया गया था।"},{"id":79,"txt":"निम्नलिखित में से किस प्रावधान का उल्लेख नेहरू रिपोर्ट (1928) में नहीं किया गया था?","ref":"","opts":["केंद्र में मुसलमानों के लिए सीटें आरक्षित करने की सिफ़ारिश की गई.","मुसलमानों के धार्मिक और सांस्कृतिक हितों की पूर्ण सुरक्षा की सिफारिश की गई।","राज्य का धर्म से पूर्ण पृथक्करण।","प्रांतीय परिषदों का कार्यकाल 6 वर्ष का होगा, जिसका अध्यक्ष राज्यपाल होगा।"],"ci":3,"exp":"Ex: प्रांतीय परिषदों का कार्यकाल 5 वर्ष का होगा, जिसका अध्यक्ष राज्यपाल होगा।"},{"id":80,"txt":"भारत छोड़ो आंदोलन से संबंधित निम्नलिखित कथनों पर विचार करें:\nA. कम्युनिस्टों और हिंदू महासभा ने आंदोलन का बहिष्कार किया।\nB. चित्तू पांडे के नेतृत्व में बलिया में न्यायदान मंडल और 'गांधी विवाह' का आयोजन किया गया।\nC. अखिल भारतीय कांग्रेस कमेटी और कांग्रेस वर्किंग कमेटी को गैरकानूनी घोषित कर दिया गया।\nD. आंदोलन के दौरान कोई सांप्रदायिक झड़प नहीं हुई।\nउपरोक्त में से कितने कथन गलत हैं/हैं?","ref":"","opts":["केवल एक","केवल दो","केवल तीन","उपरोक्त सभी"],"ci":0,"exp":"Ex: सतारा की समानांतर सरकार में न्यायदान मंडल और 'गांधी विवाह' आयोजित किए गए।"},{"id":81,"txt":"निम्नलिखित घटनाओं को उनके घटित होने के आधार पर कालानुक्रमिक क्रम में व्यवस्थित करें-\nA. सिंगापुर में स्वतंत्र भारत के लिए अस्थायी सरकार का गठन।\nB. वेवेल योजना के अंतर्गत शिमला सम्मेलन।\nC. द्वितीय विश्व युद्ध में जापान का आत्मसमर्पण।\nD. जापानी सेना द्वारा अंडमान और निकोबार द्वीप समूह आईएनए को दे दिये गये।\nकोड :","ref":"","opts":["B – A – C – D","C – A – B – D","D – C – B – A","ए - डी - बी - सी"],"ci":3,"exp":"Ex: • स्वतंत्र भारत के लिए अस्थायी सरकार का गठन 21 अक्टूबर, 1943 को सिंगापुर में किया गया था। • अंडमान और निकोबार द्वीप समूह नवंबर, 1943 में आईएनए को दे दिए गए थे। • शिमला सम्मेलन जून, 1945 में आयोजित किया गया था। • जापान ने 15 अगस्त, 1945 को आत्मसमर्पण कर दिया था।"},{"id":82,"txt":"मार्च 1940 में मुस्लिम लीग द्वारा पारित लाहौर प्रस्ताव में किसकी स्पष्ट मांग की गई थी?","ref":"","opts":["संयुक्त संघीय भारतीय संघ के तहत डोमिनियन स्थिति।","एक धर्मनिरपेक्ष केंद्र सरकार के अंतर्गत पृथक निर्वाचन प्रणाली।","भौगोलिक दृष्टि से सन्निहित क्षेत्रों का समूह जहाँ मुस्लिम बहुसंख्यक हैं, स्वतंत्र, स्वायत्त और संप्रभु राज्यों में समूहित करना।","मुस्लिम लीग केंद्रीय कार्य समिति द्वारा सीधे शासित एकल एकात्मक राज्य का निर्माण।"],"ci":2,"exp":"Ex: कोई स्पष्टीकरण उपलब्ध नहीं है."},{"id":83,"txt":"भारत में ब्रिटिश नीतियों के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. शिक्षा का 'डाउनवर्ड फिल्ट्रेशन सिद्धांत' गवर्नर-जनरल ऑकलैंड द्वारा प्रस्तावित किया गया था और बाद में मैकाले द्वारा लागू किया गया था।\nB. चार्ल्स नेपियर ने 1843 ई. में सिंध को ब्रिटिश भारत में मिला लिया था।\nC. लॉर्ड कर्जन ने अपनी विदेश नीति के तहत राजाओं और राजकुमारों की विदेश यात्रा पर प्रतिबंध लगा दिया।\nD. 'दीपावली घोषणा' अक्टूबर 1936 ई. में लॉर्ड लिनलिथगो द्वारा जारी की गई थी।\nउपरोक्त में से गलत कथनों को पहचानें:","ref":"","opts":["केवल ए और बी","A और D केवल","केवल बी और डी","केवल ए, सी और डी"],"ci":1,"exp":"Ex: शिक्षा का अधोमुखी निस्पंदन सिद्धांत: • मैकाले द्वारा प्रस्तावित इस सिद्धांत के अनुसार, अंग्रेजी शिक्षा समाज के उच्च वर्ग को प्रदान की जानी थी, जहाँ से यह आम जनता तक पहुँचती थी। • सरकार ने इस सिद्धांत को 7 मार्च, 1835 को स्वीकार कर लिया और बाद में इसे गवर्नर-जनरल ऑकलैंड द्वारा लागू किया गया। दीपावली घोषणा: • लॉर्ड इरविन ने 31 अक्टूबर, 1929 को 'दीपावली घोषणा' जारी की थी। • यह ब्रिटिश साम्राज्य के भीतर भारत की स्थिति के बारे में पांच पंक्तियों का एक संक्षिप्त बयान था, जिसमें ब्रिटिश और भारतीय दोनों दर्शकों को यह स्पष्ट करने का प्रयास किया गया था कि ब्रिटिश सरकार भविष्य में एक स्वतंत्र उपनिवेश का दर्जा प्राप्त करने में भारत की सहायता करना चाहती है। हालाँकि, किसी समय सीमा का उल्लेख नहीं किया गया था। • इसका उद्देश्य भारतीय राष्ट्रवादी आंदोलन के उन नेताओं को शांत करना था जो भारत के लिए डोमिनियन स्टेटस की मांग में तेजी से मुखर हो रहे थे। • यह घोषणा दिवाली के त्योहार के दौरान जारी की गई थी; इसलिए, इसे दीपावली घोषणा या इरविन घोषणा के रूप में जाना जाता है।"},{"id":84,"txt":"हड़प नीति के तहत ब्रिटिश साम्राज्य में शामिल निम्नलिखित रियासतों को सही कालानुक्रमिक क्रम में व्यवस्थित करें और नीचे दिए गए कोड का उपयोग करके सही उत्तर चुनें:\nA. जैतपुर बी. झाँसी\nC. अवध डी. नागपुर\nई. उदयपुर\nकोड :","ref":"","opts":["सी-बी-ए-डी-ई","सी-ए-बी-ई-डी","ए-ई-डी-बी-सी","A–E–B–D–C"],"ci":3,"exp":"Ex: लॉर्ड डलहौजी की हड़प नीति के तहत निम्नलिखित भारतीय रियासतों को ब्रिटिश साम्राज्य में मिला लिया गया/विलय कर लिया गया: • सतारा - 1848 ई. • जैतपुर (बुंदेलखंड) और संबलपुर (ओडिशा) - 1849 ई. • बघाट (हिमाचल प्रदेश) - 1850 ई. • उदयपुर (छत्तीसगढ़) - 1852 ई. • झाँसी - 1853 ई. • नागपुर - 1854 ई. • अवध - 1856 ई. नोट: 1855 ई. में करौली (राजस्थान) पर कब्ज़ा कर लिया गया था, लेकिन कोर्ट ऑफ़ डायरेक्टर्स के आदेश पर इस कब्ज़े को रद्द कर दिया गया था।"},{"id":85,"txt":"ब्रिटिश साम्राज्य के खिलाफ लोकप्रिय विद्रोह के संबंध में निम्नलिखित में से गलत कथन को पहचानें:","ref":"","opts":["तीरथ सिंह के नेतृत्व में खासी विद्रोह ब्रिटिश सरकार द्वारा तत्कालीन असम क्षेत्र में एक सैन्य सड़क के निर्माण के विरोध में हुआ था।","कूका आंदोलन, जो तत्कालीन पंजाब प्रांत में शुरू हुआ, शुरू में एक राजनीतिक आंदोलन था जो बाद में एक धार्मिक आंदोलन में बदल गया।","ब्रिटिश सरकार द्वारा कित्तूर राज्य पर कब्ज़ा करने की नीति के तहत कब्ज़ा करने के बाद रानी कित्तूर चेन्नम्मा ने एक सशस्त्र विद्रोह शुरू किया।","नील विद्रोह, जो 1859-60 में बंगाल में शुरू हुआ, मुख्य रूप से 'दादनी व्यवस्था' के विरुद्ध निर्देशित था।"],"ci":1,"exp":"Ex: कूका आंदोलन: (1840-72) • यह एक धार्मिक आंदोलन था जो जवाहर भगत मल और बालक सिंह के नेतृत्व में तत्कालीन पंजाब प्रांत में शुरू हुआ था; यह बाद में एक राजनीतिक आंदोलन में बदल गया। • गवर्नर-जनरल नॉर्थब्रुक के कार्यकाल में कूका आंदोलन को दबा दिया गया और आंदोलन के नेता राम सिंह कूका को गिरफ्तार कर रंगून जेल भेज दिया गया। नील विद्रोह: (1859-60, बंगाल) • इसकी शुरुआत बंगाल के नादिया जिले में किसानों को अग्रिम भुगतान देकर जबरन नील की खेती कराने की ब्रिटिश प्रथा के विरोध में हुई थी। नोट: दादनी/दादनी प्रणाली: • मध्ययुगीन और औपनिवेशिक भारत में प्रचलित एक प्रणाली जिसमें माल के उत्पादन के लिए कारीगरों, बुनकरों या किसानों को अग्रिम भुगतान का प्रावधान शामिल था, एक अनुबंध के तहत एक निर्धारित समय सीमा के भीतर विशिष्ट उत्पादों की डिलीवरी की आवश्यकता होती थी।"},{"id":86,"txt":"सुभाष चंद्र बोस के संबंध में निम्नलिखित कथनों का परीक्षण करें:\nA. जुलाई 1943 में सुभाष चंद्र बोस ने आज़ाद हिंद फ़ौज (इंडियन नेशनल आर्मी) की कमान संभाली।\nB. 21 अक्टूबर, 1943 को उन्होंने जापान में स्वतंत्र भारत की अस्थायी सरकार (आजाद हिन्द सरकार) का गठन किया।\nC. उन्होंने राजा राम मोहन राय को 'युगदूत' (युग का संदेशवाहक) की उपाधि प्रदान की।\nD. बोस ने सिंगापुर में 'फ्री इंडिया सेंटर' और 'फ्री इंडिया लीजन' की स्थापना की।\nउपरोक्त में से कितने कथन गलत हैं/हैं?","ref":"","opts":["केवल एक","केवल दो","केवल तीन","उपरोक्त में से कोई नहीं"],"ci":1,"exp":"Ex: • सुभाष चंद्र बोस ने 21 अक्टूबर, 1943 को सिंगापुर में आज़ाद हिंद सरकार का गठन किया, जिसे 9 देशों ने मान्यता दी। • 6 जुलाई, 1944 को बोस ने आजाद हिंद रेडियो पर एक प्रसारण के दौरान पहली बार महात्मा गांधी को 'राष्ट्रपिता' (राष्ट्रपिता) कहकर संबोधित किया। • सुभाष चंद्र बोस ने जर्मनी में 'फ्री इंडिया सेंटर' और 'फ्री इंडिया लीजन' की स्थापना की।"},{"id":87,"txt":"भारत में सामाजिक-धार्मिक सुधार आंदोलनों के संबंध में निम्नलिखित सूचनाओं पर विचार करें और नीचे दिए गए कोड का उपयोग करके बेमेल पंक्ति का चयन करें- संगठन स्थान संस्थापक\nA. आदि ब्रह्म समाज कलकत्ता देवेन्द्रनाथ टैगोर\nB. मुहम्मदन एंग्लो-ओरिएंटल कॉलेज इलाहाबाद गुलाम अहमद\nC. धर्म सभा मद्रास श्री धरालु नायडू दीनबंधु गोपाल\nD. नागपुर सार्वजनिक सभा हरिदेशमुख\nकोड :","ref":"","opts":["केवल ए","केवल ए, सी और डी","केवल B, C और D","केवल सी और डी"],"ci":2,"exp":"Ex: संस्था स्थान संस्थापक मोहम्मडन एंग्लो ओरिएंटल कॉलेज अलीगढ सैयद अहमद खान धर्म सभा कलकत्ता राधाकांत देब साइंटिफिक सोसाइटी ग़ाज़ीपुर सैयद अहमद खान दीनबंधु सार्वजनिक सभा पुणे ज्योतिबा फुले"},{"id":88,"txt":"स्वामी विवेकानन्द के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. वह मूर्ति पूजा और बहुदेववाद के समर्थक थे।\nB. उन्होंने अपनी पुस्तक 'मैं समाजवादी हूं' में 'दरिद्र-नारायण' (गरीबों के रूप में भगवान) की अवधारणा प्रस्तुत की।\nC. जुलाई 2026 में उनके राजस्थान प्रवास पर देश का पहला संयुक्त शोध पत्र डॉ. इन्द्रेश कुमार एवं डॉ. जुल्फिकार द्वारा प्रकाशित किया गया।\nउपरोक्त कथनों में से कौन सा/से सही है/हैं?","ref":"","opts":["केवल ए","केवल ए और बी","केवल बी और सी","उपरोक्त सभी"],"ci":3,"exp":"Ex: • स्वामी विवेकानन्द: कलकत्ता में जन्म (1863 ई.) • मृत्यु: बेलूर मठ में (1902 ई.) • पुस्तकें: ज्ञान योग, कर्म योग, राज योग, भक्ति योग, 'मैं समाजवादी हूं', 'कोलंबो से अल्मोडा तक व्याख्यान' • समाचार पत्र: 'प्रबुद्ध भारत' (अंग्रेजी), 'उद्बोधन' (बंगाली) • 1893 ई. में शिकागो में विश्व धर्म संसद में भाग लिया।"},{"id":89,"txt":"महिला उत्थान हेतु किये गये प्रयासों के संबंध में निम्नलिखित में से कौन सा कथन सही है?","ref":"","opts":["विष्णु शास्त्री पंडित ने 1819 ई. में कलकत्ता में 'तरुण स्त्री सभा' की स्थापना की।","जे.ई.डी. बेथ्यून ने 1849 ई. में कलकत्ता में प्रथम बालिका विद्यालय की स्थापना की।","डी.के. कर्वे ने 1916 ई. में कलकत्ता में भारत के पहले महिला विश्वविद्यालय की स्थापना की।","फातिमा शेख भारत की पहली महिला शिक्षिका थीं।"],"ci":1,"exp":"Ex: • ईसाई मिशनरियों ने 1819 ई. में कलकत्ता में 'तरुण स्त्री सभा' की स्थापना की। • डी.के. कर्वे ने 1916 में बॉम्बे में एक महिला विश्वविद्यालय की स्थापना की। यह भारत का पहला महिला विश्वविद्यालय था। • फातिमा शेख को पहली मुस्लिम महिला शिक्षिका माना जाता है। •सावित्रीबाई फुले भारत की पहली महिला शिक्षिका थीं।"},{"id":90,"txt":"देवबंद आंदोलन के संबंध में निम्नलिखित कथनों पर विचार करें:\nA. इसके संस्थापक सैयद अहमद बरेलवी थे।\nB. इस आन्दोलन ने अलीगढ आन्दोलन का समर्थन किया तथा कांग्रेस का विरोध किया।\nउपरोक्त में से कौन सा कथन गलत है/हैं?","ref":"","opts":["केवल ए","केवल बी","A और B दोनों","न तो ए और न ही बी"],"ci":2,"exp":"Ex: देवबंद आंदोलन: • संस्थापक: रशीद अहमद गंगोही, मुहम्मद कासिम नानौतवी। • उद्देश्य : इस्लाम के मूल स्वरूप की स्थापना करना, अच्छे धार्मिक शिक्षकों को प्रशिक्षित करना और पश्चिमी संस्कृति का विरोध करना। • इस आन्दोलन ने अलीगढ आन्दोलन का विरोध किया तथा कांग्रेस का समर्थन किया (अर्थात् आधुनिकीकरण का विरोध किया)। • वहाबी आंदोलन: अरब में अब्दुल वहाब द्वारा शुरू किया गया। सैयद अहमद बरेलवी ने भारत में इसका प्रचार-प्रसार किया।"},{"id":91,"txt":"स्वतंत्रता के बाद के भारत में राष्ट्र-निर्माण से संबंधित गतिविधियों के संदर्भ में निम्नलिखित कथनों का परीक्षण करें-\nA. उद्योग (विकास और विनियमन) अधिनियम, 1951 ने पहली बार उद्योगों के लिए लाइसेंसिंग अनिवार्य कर दी।\nB. द्वितीय औद्योगिक नीति, 1956 के अंतर्गत लघु उद्योगों को 3 श्रेणियों में विभाजित किया गया।\n3\nC. आर्थिक नियोजन के लिए राज्यों और योजना आयोग के बीच सहयोग बढ़ाने के उद्देश्य से 1953 में राष्ट्रीय विकास परिषद नामक एक संवैधानिक निकाय की स्थापना की गई।\nD. 1955 में, निजी क्षेत्र में स्थापित इकाइयों के आधुनिकीकरण के लिए सहायता प्रदान करने के लिए इंडस्ट्रियल क्रेडिट एंड इन्वेस्टमेंट कॉरपोरेशन ऑफ़ इंडिया लिमिटेड की स्थापना की गई थी।\nउपरोक्त में से सही कथन चुनें- [1] केवल ए और बी [2] केवल ए और सी [3] केवल ए, बी और डी [4] ए, बी, सी और डी [5] प्रश्न का प्रयास नहीं किया गया हल: [3]\n• भारत में आर्थिक नियोजन के लिए राज्यों और योजना आयोग के बीच सहयोगात्मक माहौल बनाने के उद्देश्य से 6 अगस्त 1952 को राष्ट्रीय विकास परिषद नामक एक गैर-संवैधानिक निकाय की स्थापना की गई थी।\n• इसकी अध्यक्षता भारत के प्रधान मंत्री करते हैं और इसमें केंद्रीय मंत्री, सभी राज्यों के मुख्यमंत्री, केंद्र शासित प्रदेशों के मुख्यमंत्री और प्रशासक और योजना आयोग के सदस्य शामिल होते हैं।\n95. हैदराबाद के एकीकरण के संबंध में निम्नलिखित कथनों पर विचार करें-\nA. 29 नवंबर 1947 को, हैदराबाद के निज़ाम ने भारत सरकार के साथ एक वर्ष के लिए \"स्टैंडस्टिल एग्रीमेंट\" नामक एक समझौते पर हस्ताक्षर किए।\nB. हैदराबाद के निज़ाम उस्मान अली खान ने सितंबर 1948 में भारतीय सेना की कार्रवाई के खिलाफ संयुक्त राष्ट्र सुरक्षा परिषद में अपील की।\nC. 1950 ई. में स्वतंत्र भारत के संविधान के तहत हैदराबाद को पार्ट बी राज्य का दर्जा दिया गया।\nD. राज्य पुनर्गठन अधिनियम के तहत 1953 ई. में. हैदराबाद को भाषाई आधार पर दो भागों में विभाजित किया गया था।\nउपरोक्त में से सही कथन चुनें- [1] केवल ए और बी [2] केवल ए, बी और सी [3] केवल बी, सी और डी [4] उपरोक्त सभी [5] प्रश्न का प्रयास नहीं किया गया हल: [2] हैदराबाद विलय:\n• 29 नवंबर 1947 को हैदराबाद ने भारतीय संघ के साथ \"स्टैंडस्टिल एग्रीमेंट\" नामक एक साल का अस्थायी समझौता किया, जिसके तहत 15 अगस्त 1947 से पहले की स्थिति को बनाए रखा जाना था। हालाँकि, निज़ाम उस्मान अली खान ने समझौते का पालन नहीं किया।\n• भारतीय सेना के 'ऑपरेशन पोलो' (सितंबर 1948) के तहत हैदराबाद को भारतीय संघ के नियंत्रण में लाया गया।\n• नवंबर 1949 में, हैदराबाद को औपचारिक रूप से भारत में एकीकृत किया गया।\n• 1956 में, राज्य पुनर्गठन अधिनियम के तहत, हैदराबाद को भाषा के आधार पर तीन भागों में विभाजित किया गया था: मराठी भाषी क्षेत्र (मराठवाड़ा) को बॉम्बे में मिला दिया गया था, कन्नड़ भाषी क्षेत्र को मैसूर में मिला दिया गया था, और तेलुगु भाषी क्षेत्र (तेलंगाना) को आंध्र प्रदेश में मिला दिया गया था।\n96. स्वतंत्रता के बाद भारत में विज्ञान और प्रौद्योगिकी के विकास के संबंध में निम्नलिखित में से गलत कथन को पहचानें-","ref":"","opts":["1954 में, होमी जहांगीर भाभा ने एक दीर्घकालिक तीन-चरणीय परमाणु ऊर्जा कार्यक्रम तैयार किया।","भारत का पहला परमाणु अनुसंधान रिएक्टर, \"अप्सरा\", 1958 में ट्रॉम्बे (बॉम्बे) में स्थापित किया गया था।","भारत में तेल एवं प्राकृतिक गैस आयोग की स्थापना 1956 में हुई थी।","इनमें से कोई नहीं"],"ci":1,"exp":"Ex: • देश का पहला परमाणु अनुसंधान रिएक्टर, \"अप्सरा\", अगस्त 1956 में ट्रॉम्बे, बॉम्बे में स्थापित किया गया था। • यह एशिया का पहला क्रिटिकलिटी परमाणु अनुसंधान रिएक्टर था। 97. सूची-I (नेहरू युग में संस्थागत विकास) को सूची-II (स्थापना का स्थान) के साथ सुमेलित करें- सूची-I सूची-II A. केंद्रीय खाद्य प्रौद्योगिकी i. नई दिल्ली अनुसंधान संस्थान बी. केंद्रीय औषधि अनुसंधान ii. मैसूर इंस्टीट्यूट (कर्नाटक) सी. हिंदुस्तान टेलीप्रिंटर्स iii. लखनऊ लिमिटेड (उत्तर प्रदेश) डी. राष्ट्रीय बीज निगम iv. चेन्नई लिमिटेड कोड: A B C D A B C D [1] i ii iv iii [2] iii ii iv i [3] ii iii iv i [4] ii iii i iv [5] प्रश्न का प्रयास नहीं किया गया"}],"m":null,"tt":5520,"nm":0.66};
+let explanationMode='plain';
+function setExplanationMode(mode){explanationMode=mode==='notes'?'notes':'plain';const sel=document.getElementById('explanationMode');if(sel&&sel.value!==explanationMode)sel.value=explanationMode;if(typeof st!=='undefined'&&st&&typeof st.cq==='number'&&document.getElementById('qs'))rq(st.cq);}
+function noteEscape(value){return String(value==null?'':value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\"/g,'&quot;').replace(/'/g,'&#39;');}
+function buildStudyNotes(raw){
+ const text=String(raw||'').replace(/^\s*Ex\s*:\s*/i,'').trim();
+ if(!text)return '<div class="notes-panel"><div class="notes-empty">No explanation was provided for this question.</div></div>';
+ const sentences=text.split(/\n+|(?<=[.!?])\s+(?=[A-Z0-9])/).map(x=>x.trim()).filter(Boolean);
+ const defs=sentences.filter(x=>/\b(is defined as|means that|refers to|is known as|can be defined as|denotes)\b/i.test(x));
+ const years=[];const yearRx=/\b(?:1[6-9]\d{2}|20[0-3]\d)\b/g;let match;while((match=yearRx.exec(text))!==null){if(!years.some(y=>y.year===match[0])){const start=Math.max(0,match.index-65),end=Math.min(text.length,match.index+105);years.push({year:match[0],detail:text.slice(start,end).trim()});}}
+ const termSet=[];const termRx=/\b(?:Article\s+\d+[A-Za-z]?|[A-Z]{2,}(?:\s+[A-Z]{2,}){0,2})\b/g;while((match=termRx.exec(text))!==null){const term=match[0].trim();if(term.length>2&&!/^(THE|AND|FOR|NOT|BUT|EX|INDIA)$/i.test(term)&&!termSet.includes(term))termSet.push(term);}
+ const esc=noteEscape;let html='<div class="notes-panel"><div class="notes-banner"><span class="notes-banner-icon">📚</span><div><div class="notes-banner-title">Structured Study Notes</div><div class="notes-banner-sub">Explanation organised for quick revision</div></div></div>';
+ if(defs.length)html+='<section class="notes-section definition"><h4>📖 Definition / Core Idea</h4>'+defs.map(x=>'<p>'+esc(x)+'</p>').join('')+'</section>';
+ const key=sentences.filter(x=>defs.indexOf(x)===-1&&!/^(Hence|Therefore|Thus|In conclusion)\b/i.test(x));
+ if(key.length)html+='<section class="notes-section points"><h4>📌 Key Points</h4><ul>'+key.slice(0,12).map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul></section>';
+ if(years.length)html+='<section class="notes-section timeline"><h4>🗓️ Important Years / Dates</h4><ul>'+years.slice(0,8).map(y=>'<li><b>'+esc(y.year)+'</b> — '+esc(y.detail)+'</li>').join('')+'</ul></section>';
+ if(termSet.length)html+='<section class="notes-section terms"><h4>🔑 Key Terms</h4><p>'+termSet.slice(0,10).map(esc).join(' · ')+'</p></section>';
+ const revision=sentences.slice(0,5);if(revision.length)html+='<section class="notes-section revision"><h4>☑️ Quick Revision Checklist</h4><ul>'+revision.map(x=>'<li>☐ '+esc(x)+'</li>').join('')+'</ul></section>';
+ html+='<details class="notes-section"><summary style="cursor:pointer;font-size:11px;font-weight:700;color:#475569">View original explanation</summary><p style="margin-top:8px">'+esc(text)+'</p></details></div>';return html;
+}
+st={cq:0,a:Array(qd.q.length).fill(null),mk:Array(qd.q.length).fill(false),tr:qd.tt,ti:null,sb:false,rv:false,th:'light'};
+
+const VoiceEngine = {
+    enabledQ: false,
+    enabledExp: false,
+    selectedVoice: null,
+    init() {
+        const qCheck = document.getElementById('tts-read-q-p');
+        const expCheck = document.getElementById('tts-read-exp-p');
+        if (qCheck) {
+            this.enabledQ = localStorage.getItem('tts_read_q') === 'true';
+            qCheck.checked = this.enabledQ;
+            qCheck.addEventListener('change', (e) => {
+                this.enabledQ = e.target.checked;
+                localStorage.setItem('tts_read_q', this.enabledQ);
+                if (this.enabledQ) this.speak("Voice enabled");
+                else window.speechSynthesis.cancel();
+            });
+        }
+        if (expCheck) {
+            this.enabledExp = localStorage.getItem('tts_read_exp') === 'true';
+            expCheck.checked = this.enabledExp;
+            expCheck.addEventListener('change', (e) => {
+                this.enabledExp = e.target.checked;
+                localStorage.setItem('tts_read_exp', this.enabledExp);
+                if (this.enabledExp) this.speak("Explanation enabled");
+                else window.speechSynthesis.cancel();
+            });
+        }
+        this.selectVoice();
+        if (typeof window !== 'undefined' && window.speechSynthesis) {
+            window.speechSynthesis.onvoiceschanged = () => this.selectVoice();
+        }
+    },
+    selectVoice() {
+        if (typeof window === 'undefined' || !window.speechSynthesis) return;
+        const voices = window.speechSynthesis.getVoices();
+        let hiVoice = voices.find(v => v.lang.startsWith('hi') && (v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('veena') || v.name.toLowerCase().includes('google')));
+        if (!hiVoice) hiVoice = voices.find(v => v.lang.startsWith('hi'));
+        let enVoice = voices.find(v => v.lang.startsWith('en') && (v.name.toLowerCase().includes('zira') || v.name.toLowerCase().includes('hazel') || v.name.toLowerCase().includes('female') || v.name.toLowerCase().includes('google') || v.name.toLowerCase().includes('samantha')));
+        if (!enVoice) enVoice = voices.find(v => v.lang.startsWith('en'));
+        this.selectedVoice = hiVoice || enVoice || voices[0];
+    },
+    speak(text) {
+        if (typeof window === 'undefined' || !window.speechSynthesis) return;
+        window.speechSynthesis.cancel();
+        if (!text) return;
+        let cleanText = text.replace(/<[^>]*>/g, "").trim();
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        if (this.selectedVoice) utterance.voice = this.selectedVoice;
+        window.speechSynthesis.speak(utterance);
+    },
+    speakQuestion(qObj) {
+        if (!this.enabledQ) return;
+        let str = qObj.txt + ". ";
+        if (qObj.opts) {
+            qObj.opts.forEach((o, i) => {
+                str += "Option " + String.fromCharCode(65 + i) + ": " + o + ". ";
+            });
+        }
+        this.speak(str);
+    },
+    speakExplanation(exp) {
+        if (!this.enabledExp) return;
+        this.speak("Explanation: " + exp);
+    }
+};
+
+const Lifelines = {
+    used5050: false,
+    usedPoll: false,
+    usedDouble: false,
+    doubleDipActive: false,
+    init() {
+        this.used5050 = false;
+        this.usedPoll = false;
+        this.usedDouble = false;
+        this.doubleDipActive = false;
+        const btn1 = document.getElementById('ll-5050');
+        const btn2 = document.getElementById('ll-poll');
+        const btn3 = document.getElementById('ll-double');
+        if (btn1) btn1.disabled = false;
+        if (btn2) btn2.disabled = false;
+        if (btn3) btn3.disabled = false;
+    }
+};
+
+function useLifeline(type) {
+    const q = qd.q[st.cq];
+    if (type === '5050') {
+        if (Lifelines.used5050) return;
+        Lifelines.used5050 = true;
+        document.getElementById('ll-5050').disabled = true;
+        
+        const incorrect = [];
+        q.opts.forEach((_, i) => {
+            if (i !== q.ci) incorrect.push(i);
+        });
+        
+        const toHide = [];
+        while (toHide.length < 2 && incorrect.length > 0) {
+            toHide.push(incorrect.splice(Math.floor(Math.random() * incorrect.length), 1)[0]);
+        }
+        
+        const btns = document.querySelectorAll('.option-btn');
+        toHide.forEach(idx => {
+            if (btns[idx]) {
+                btns[idx].style.opacity = '0';
+                btns[idx].style.pointerEvents = 'none';
+            }
+        });
+    } 
+    else if (type === 'poll') {
+        if (Lifelines.usedPoll) return;
+        Lifelines.usedPoll = true;
+        document.getElementById('ll-poll').disabled = true;
+        
+        let correctPct = Math.floor(Math.random() * 25) + 50;
+        let remaining = 100 - correctPct;
+        
+        const optPcts = [0, 0, 0, 0];
+        optPcts[q.ci] = correctPct;
+        
+        const other = [0, 1, 2, 3].filter(i => i !== q.ci);
+        const p1 = Math.floor(Math.random() * (remaining - 5));
+        remaining -= p1;
+        const p2 = Math.floor(Math.random() * remaining);
+        const p3 = remaining - p2;
+        optPcts[other[0]] = p1;
+        optPcts[other[1]] = p2;
+        optPcts[other[2]] = p3;
+        
+        const container = document.getElementById('pollBarsContainer');
+        container.innerHTML = '';
+        
+        q.opts.forEach((opt, idx) => {
+            const pct = optPcts[idx];
+            const label = String.fromCharCode(65 + idx);
+            const barWrap = document.createElement('div');
+            barWrap.style.marginBottom = '10px';
+            barWrap.innerHTML = `
+                <div style="display:flex; justify-content:space-between; font-size:12px; font-weight:600; margin-bottom:4px;">
+                    <span>Option ${label}: ${opt.slice(0, 25)}</span>
+                    <span>${pct}%</span>
+                </div>
+                <div style="height:10px; background:rgba(0,0,0,0.05); border-radius:5px; overflow:hidden;">
+                    <div class="poll-fill-${idx}" style="height:100%; border-radius:5px; width:0%; background:${idx === q.ci ? 'var(--success)' : 'var(--primary)'}; transition: width 1s ease;"></div>
+                </div>
+            `;
+            container.appendChild(barWrap);
+            setTimeout(() => {
+                const fillEl = container.querySelector('.poll-fill-' + idx);
+                if (fillEl) fillEl.style.width = pct + '%';
+            }, 100);
+        });
+        
+        document.getElementById('pollModal').style.display = 'flex';
+    } 
+    else if (type === 'double') {
+        if (Lifelines.usedDouble) return;
+        Lifelines.usedDouble = true;
+        Lifelines.doubleDipActive = true;
+        document.getElementById('ll-double').disabled = true;
+        alert("Double Dip Lifeline Active! You can now guess twice for this question.");
+    }
+}
+
+document.addEventListener('DOMContentLoaded',()=>{sms();pcc();lt()});
+function lt(){const t=localStorage.getItem('qt')||'light';st.th=t;document.documentElement.setAttribute('data-theme',t);uti()}
+function tgt(){st.th=st.th==='light'?'dark':'light';document.documentElement.setAttribute('data-theme',st.th);localStorage.setItem('qt',st.th);uti()}
+function uti(){const i=document.querySelector('#tt i');if(i)i.className=st.th==='light'?'fas fa-moon':'fas fa-sun'}
+function pcc(){document.addEventListener('contextmenu',e=>e.preventDefault());document.addEventListener('copy',e=>e.preventDefault());document.addEventListener('cut',e=>e.preventDefault());document.addEventListener('selectstart',e=>{if(!e.target.tagName.match(/INPUT|TEXTAREA/i))e.preventDefault()})}
+function sms(){const mc=document.querySelectorAll('.mode-card'),sb=document.getElementById('sb');mc.forEach(c=>{c.addEventListener('click',()=>{mc.forEach(x=>x.classList.remove('selected'));c.classList.add('selected');qd.m=c.dataset.mode;sb.disabled=false})});sb.addEventListener('click',sq)}
+function sq(){const ct=document.getElementById('ct'),ctv=parseInt(ct.value);if(ctv&&ctv>0){st.tr=ctv*60;qd.tt=ctv*60}document.body.style.overflow='hidden';document.getElementById('modeSelection').style.display='none';document.getElementById('quizContainer').style.display='block';document.getElementById('mb').textContent=qd.m;document.getElementById('mb').className='mode-badge '+qd.m;iq()}
+function iq(){Lifelines.init();VoiceEngine.init();rq(0);rqg();stt();sn()}
+function stt(){utd();st.ti=setInterval(()=>{st.tr--;utd();if(st.tr<=0){clearInterval(st.ti);sbq()}if(st.tr<=60)document.getElementById('td').classList.add('warning')},1000)}
+function utd(){const m=Math.floor(st.tr/60),s=st.tr%60;document.getElementById('tt2').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`}
+function rq(i){st.cq=i;const q=qd.q[i],qs=document.getElementById('qs');let h=`<div class="question-card"><div class="question-number"><i class="fas fa-question-circle"></i>Question ${i+1} of ${qd.q.length}</div>`;if(q.ref)h+=`<div class="question-reference protected-content"><i class="fas fa-info-circle"></i> ${q.ref}</div>`;h+=`<div class="question-text protected-content">${q.txt}</div><div class="options-container">`;q.opts.forEach((o,x)=>{let bc='option-btn',ic=String.fromCharCode(65+x);const isSel=st.a[i]===x,isCor=x===q.ci,shAns=(qd.m==='practice'&&st.a[i]!==null)||st.sb;if(isSel)bc+=' selected';if(shAns){bc+=' disabled';if(isCor){bc+=' correct';ic='<i class="fas fa-check"></i>'}else if(isSel&&!isCor){bc+=' incorrect';ic='<i class="fas fa-times"></i>'}}h+=`<button class="${bc}" data-index="${x}" onclick="so(${x})"><div class="option-indicator">${ic}</div><div class="option-text protected-content">${o}</div></button>`});h+=`</div>`;const shExp=(qd.m==='practice'&&st.a[i]!==null)||st.sb;if(shExp){if(explanationMode==='notes'){h+=buildStudyNotes(q.exp)}else{h+=`<div class="explanation-box" style="display:block"><div class="explanation-header"><i class="fas fa-lightbulb"></i>Explanation</div><div class="explanation-text protected-content">${q.exp}</div></div>`}}h+=`</div>`;qs.innerHTML=h;qs.scrollTop=0;up();unb();uqg();if(!st.sb && VoiceEngine.enabledQ){VoiceEngine.speakQuestion(q);}}
+function so(oi){if(st.sb)return;const q=qd.q[st.cq];if(Lifelines.doubleDipActive){if(oi!==q.ci){Lifelines.doubleDipActive=false;const btn=document.querySelector('.option-btn[data-index="'+oi+'"]');if(btn){btn.classList.add('incorrect');btn.style.pointerEvents='none';btn.querySelector('.option-indicator').innerHTML='<i class="fas fa-times"></i>';}return;}else{Lifelines.doubleDipActive=false;}}if(st.a[st.cq]===oi){st.a[st.cq]=null}else{st.a[st.cq]=oi}rq(st.cq);if(qd.m==='practice' && st.a[st.cq]!==null && VoiceEngine.enabledExp){VoiceEngine.speakExplanation(q.exp);}}
+function sn(){document.getElementById('pv').addEventListener('click',np);document.getElementById('nx').addEventListener('click',nn);document.getElementById('mk').addEventListener('click',tm);document.getElementById('sm').addEventListener('click',cs);document.getElementById('nt').addEventListener('click',tnp);document.getElementById('nc').addEventListener('click',tnp);document.getElementById('rb').addEventListener('click',ra);document.getElementById('rsb').addEventListener('click',rs);document.getElementById('tt').addEventListener('click',tgt);document.addEventListener('keydown',e=>{if(st.sb)return;if(e.key==='ArrowLeft')np();if(e.key==='ArrowRight')nn()})}
+function np(){if(st.cq>0)rq(st.cq-1)}
+function nn(){if(st.cq<qd.q.length-1)rq(st.cq+1)}
+function tm(){st.mk[st.cq]=!st.mk[st.cq];uqg();const mb=document.getElementById('mk');mb.innerHTML=st.mk[st.cq]?'<i class="fas fa-bookmark"></i> Unmark':'<i class="fas fa-bookmark"></i> Mark'}
+function unb(){document.getElementById('pv').disabled=st.cq===0;if(st.cq===qd.q.length-1){document.getElementById('nx').style.display='none';document.getElementById('sm').style.display='flex'}else{document.getElementById('nx').style.display='flex';document.getElementById('sm').style.display='none'}const mb=document.getElementById('mk');mb.innerHTML=st.mk[st.cq]?'<i class="fas fa-bookmark"></i> Unmark':'<i class="fas fa-bookmark"></i> Mark'}
+function up(){const at=st.a.filter(a=>a!==null).length,pr=((st.cq+1)/qd.q.length)*100;document.getElementById('pt').textContent=`Question ${st.cq+1} of ${qd.q.length}`;document.getElementById('at').textContent=`Attempted: ${at}/${qd.q.length}`;document.getElementById('pb').style.width=pr+'%'}
+function rqg(){const g=document.getElementById('qg');g.innerHTML='';qd.q.forEach((_,i)=>{const it=document.createElement('div');it.className='question-nav-item';it.textContent=i+1;it.onclick=()=>{rq(i);if(window.innerWidth<768)tnp()};g.appendChild(it)})}
+function uqg() {
+    const its = document.querySelectorAll('.question-nav-item');
+    its.forEach((it, i) => {
+        it.className = 'question-nav-item';
+        if (i === st.cq) it.classList.add('current');
+        if (st.sb) {
+            if (st.a[i] === qd.q[i].ci) it.classList.add('correct');
+            else if (st.a[i] !== null) it.classList.add('incorrect');
+        } else {
+            if (st.a[i] !== null) it.classList.add('answered');
+            if (st.mk[i]) it.classList.add('marked');
+        }
+    });
+}
+function tnp(){document.getElementById('np').classList.toggle('open')}
+function cs(){const u=st.a.filter(a=>a===null).length;if(u>0){const c=window.confirm(`You have ${u} unattempted question(s). Do you want to submit?`);if(!c)return}sbq()}
+function sbq(){clearInterval(st.ti);st.sb=true;let c=0,ic=0,u=0,nm=0;st.a.forEach((a,i)=>{if(a===null)u++;else if(a===qd.q[i].ci)c++;else{ic++;nm+=qd.nm}});const ts=c-nm,pc=(ts/qd.q.length)*100;document.body.style.overflow='auto';document.getElementById('quizContainer').style.display='none';document.getElementById('resultsContainer').style.display='block';document.getElementById('resultsContainer').classList.add('scrollable');if(pc>=70){document.getElementById('ri').innerHTML='<i class="fas fa-trophy" style="color:#fbbf24"></i>';document.getElementById('rt').textContent='Excellent Performance!'}else if(pc>=50){document.getElementById('ri').innerHTML='<i class="far fa-smile" style="color:#48bb78"></i>';document.getElementById('rt').textContent='Good Job!'}else{document.getElementById('ri').innerHTML='<i class="far fa-meh" style="color:#f5576c"></i>';document.getElementById('rt').textContent='Keep Practicing!'}document.getElementById('rs').textContent=ts.toFixed(2)+' / '+qd.q.length;document.getElementById('rp').textContent=pc.toFixed(1)+'%';document.getElementById('cc').textContent=c;document.getElementById('ic').textContent=ic;document.getElementById('uc').textContent=u;document.getElementById('nm').textContent='-'+nm.toFixed(2)}
+function ra(){st.rv=true;document.body.style.overflow='hidden';document.getElementById('resultsContainer').style.display='none';document.getElementById('quizContainer').style.display='block';rq(0);uqg()}
+function rs(){document.body.style.overflow='hidden';location.reload()}
+</script>
+</body>
+</html>
